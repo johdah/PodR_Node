@@ -23,6 +23,9 @@ var db = mongoose.connect(config.db);
 
 // Bootstrap passport config
 
+// Create app
+var app = express();
+
 // Express settings
 require('./config/express')(app, passport, db);
 

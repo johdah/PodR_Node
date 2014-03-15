@@ -10,22 +10,22 @@ module.exports = {
 		clientSecret: 'APP_SECRET',
 		callbackURL: 'http://localhost:3000/auth/facebook/callback'
 	},
-	github {
+	github: {
 		clientID: 'APP_ID',
 		clientSecret: 'APP_SECRET',
 		callbackURL: 'http://localhost:3000/auth/github/callback'
 	},
-	google {
+	google: {
 		clientID: 'APP_ID',
 		clientSecret: 'APP_SECRET',
 		callbackURL: 'http://localhost:3000/auth/google/callback'
 	},
-	linkedin {
+	linkedin: {
 		clientID: 'APP_ID',
 		clientSecret: 'APP_SECRET',
 		callbackURL: 'http://localhost:3000/auth/linkedin/callback'
 	},
-	twitter {
+	twitter: {
 		clientID: 'APP_ID',
 		clientSecret: 'APP_SECRET',
 		callbackURL: 'http://localhost:3000/auth/twitter/callback'
