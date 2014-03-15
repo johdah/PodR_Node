@@ -24,6 +24,7 @@ var db = mongoose.connect(config.db);
 // Bootstrap passport config
 
 // Express settings
+require('./config/express')(app, passport, db);
 
 // Bootstrap routes
 
