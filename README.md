@@ -92,7 +92,6 @@ If you are using node instead of grunt, it is very similar:
 	$ NDOE_ENV=test node server
 
 NOTE: Running Node.js applications in the __production__ environment enables caching, which is disabled by default in all other environments.
-
 ## Heroku Quick Deployment
 Before you start make sure you have the [Heroku toolbelt](https://toolbelt.heroku.com) installed and an accessible mongo db instance.
 
