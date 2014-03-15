@@ -45,6 +45,23 @@ var app = express();
 require('./config/express')(app, passport, db);
 
 // Bootstrap routes
+var routes_path = __dirname + '/app/routes';
+var walk = function(path) {
+	fs.readdirSync(path).forEach(function(file) {
+		var newPath = path + '/' + file;
+		var stat = fs.statSync(newPath);
+		if(stat.isFile()) {
+			if(/(.*)\.(js$|coffee$)/.test(file)) {
+				require(newPath)(app, passport);
+			}
+		// Skip app/routes/middlewares directory is skiped since it is meant 
+		// to be used and shared by routes and is not a route by itself
+		} else if (stat.isDirectory() && file !== 'middlewares') {
+			walk(newPath);
+		}
+	});
+};
+walk(routes_path);
 
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;
