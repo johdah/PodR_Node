@@ -7,10 +7,14 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 
 	// states for my app
 	$stateProvider
-		/*.state('all podcasts', {
+		.state('all podcasts', {
 			url: '/podcasts',
 			templateUrl: 'views/podcasts/list.html'
-		})*/
+		})
+		.state('podcast by id', {
+			url: '/podcasts/:podcastId',
+			templateUrl: 'views/podcasts/view.html'
+		})
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/index.html'
