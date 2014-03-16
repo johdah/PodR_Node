@@ -33,6 +33,28 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		nodemon: {
+			dev: {
+				script: 'server.js',
+				options: {
+					args: [],
+					ignore: ['public/**'],
+					ext: 'js',
+					nodeArgs: ['--debug'],
+					delayTime: 1,
+					env: {
+						PORT: 3000
+					},
+					cwd: __dirname
+				}
+			}
+		},
+		concurrent: {
+			tasks: ['nodemon', 'watch'],
+			options: {
+				logConcurrentOutput: true
+			}
+		},
 		env: {
 			test: {
 				NODE_ENV: 'test'
@@ -41,6 +63,11 @@ module.exports = function(grunt) {
 	});
 
 	// Load NPM tasks
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-env');
 
 	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);
