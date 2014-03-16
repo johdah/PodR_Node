@@ -3,6 +3,19 @@
 angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', 'Global', 'Podcasts', function($scope, $stateParams, $location, Global, Podcasts) {
 	$scope.global = Global;
 
+	$scope.create = function() {
+		var podcast = new Podcast({
+			title: this.title,
+			url: this.url
+		});;
+		podcast.$save(function(response) {
+			$location.path('podcasts/' + response._id)
+		});
+
+		this.title = '';
+		this.url = '';
+	};
+
 	$scope.remove = function(podcast) {
 		if(podcast) {
 			podcast.$remove();
@@ -16,6 +29,18 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			$scope.podcast.$remove();
 			$location.path('podcasts');
 		}
+	};
+
+	$scope.update = function() {
+		var podcast = $scope.podcast;
+		if(!podcast.updated) {
+			podcast.updated = [];
+		}
+		podcast.updated.push(new Date().getTime());
+
+		podcast.$update(function() {
+			$location.path('podcasts/' + podcast._id);
+		});
 	};
 
 	$scope.find = function() {
