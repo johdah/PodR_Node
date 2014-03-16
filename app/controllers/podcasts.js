@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Podcast = mongoose.modul('Podcast'),
-	_ = require('lodash');
+	Podcast = mongoose.modul('Podcast');
+	//_ = require('lodash');
 
 /**
  * Find podcast by id
