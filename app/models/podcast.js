@@ -33,4 +33,13 @@ PodcastSchema.path('url').validate(function(url) {
 	return url.length;
 }, 'Url cannot be blank');
 
+/**
+ * Statics
+ */
+PodcastSchema.statics.load = function(id, cb) {
+	this.findOne({
+		_id: id
+	}).exec(cb);
+};
+
 mongoose.model('Podcast', PodcastSchema);
