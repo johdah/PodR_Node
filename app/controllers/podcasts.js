@@ -45,3 +45,25 @@ exports.destroy = function(req, res) {
 		}
 	});
 };
+
+/**
+ * Show a podcast
+ */
+exports.show = function(req, res) {
+	res.jsonp(req.podcast);
+};
+
+/**
+ * List of podcasts
+ */
+exports.all = function(req, res) {
+	Podcast.find().sort('-title').exec(function(err, podcasts) {
+		if(err) {
+			res.render('error', {
+				status: 500
+			});
+		} else {
+			res.jsonp(podcasts);
+		}
+	});
+};
