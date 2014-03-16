@@ -39,7 +39,7 @@ exports.signup = function(req, res) {
 exports.signout = function(req, res) {
 	req.logout();
 	res.redirect('/');
-}
+};
 
 
 /**
@@ -47,7 +47,7 @@ exports.signout = function(req, res) {
  */
 exports.session = function(req, res) {
 	res.redirect('/');
-}
+};
 
 /**
  * Create user

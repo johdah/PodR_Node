@@ -34,12 +34,13 @@ var UserSchema = new Schema({
  * Virtuals
  */
 UserSchema.virtual('password').set(function(password) {
- 	this._password = password;
- 	this.salt = this.makeSalt();
- 	this.hashed_password = this.encryptPassword(password);
-}).get(function() {
- 	return this._password;
-});
+		this._password = password;
+		this.salt = this.makeSalt();
+		this.hashed_password = this.encryptPassword(password);
+	}).get(function() {
+		return this._password;
+	}
+);
 
 /**
  * Validations
@@ -89,9 +90,9 @@ UserSchema.methods = {
 	/**
 	 * Authenticate - check if the passwords are the same
 	 *
-  	 * @param {String} plainText
-  	 * @return {Boolean}
-  	 * @api public
+	 * @param {String} plainText
+	 * @return {Boolean}
+	 * @api public
 	 */
 	authenticate: function(plainText) {
 		return this.encryptPassword(plainText) === this.hashed_password;
