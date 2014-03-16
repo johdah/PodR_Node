@@ -1,0 +1,12 @@
+<section data-ng-controller="PodcastController" data-ng-init="findOne()">
+	<h2>{{podcast.title}}</h2>
+	<span>{{podcast.created | date:'medium'}}</span>
+	<div>
+		<a class="btn" href="/#!/podcasts/{{podcast._id}}/edit">
+			<em class="glyphicon glyphicon-edit"></em>
+		</a>
+		<a class="btn" data-ng-click="remove();">
+			<em class="glyphicon glyphicon-thrash"></em>
+		</a>
+	</div>
+</section>

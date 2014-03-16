@@ -1,0 +1,10 @@
+<section data-ng-controller="PodcastsController" data-ng-init="find()">
+	<ul class="podcasts unstyled">
+		<li data-ng-repeat="podcast in podcasts">
+			<h2><a data-ng-href="#!/podcasts/{{podcast._id}}">{{podcast.title}}</a></h2>
+			<span>{{ podcast.created | date:'medium' }}</span>
+			<span class="url">{{podcast.url}}</span>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!podcasts || podcasts.length">No podcasts yet. <br /> Why dont't you <a href="/!/podcasts/add">Add one</a>?</h1>
+</section>
