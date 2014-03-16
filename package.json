@@ -34,13 +34,17 @@
 		"grunt-env":				"~0.4.1",
 		"forever":					"~0.10.11",
 		"grunt-concurrent":			"~0.4.2",
+		"grunt-mocha-test":			"~0.8.1",
 		"grunt-contrib-jshint":		"~0.8.0",
+		"grunt-nodemon":			"0.2.0",
 		"grunt-contrib-watch":		"~0.5.3",
 		"swig":						"~1.3.2"
 	},
 	"devDependencies": {
 		"grunt-contrib-watch":		"latest",
 		"grunt-contrib-jshint":		"latest",
-		"grunt-concurrent":			"latest"
+		"grunt-nodemon":			"0.2.0",
+		"grunt-concurrent":			"latest",
+		"grunt-mocha-test":			"latest"
 	}
 }
