@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Podcast = mongoose.model('Podcast');
-	//_ = require('lodash');
+	Podcast = mongoose.model('Podcast'),
+	_ = require('lodash');
 
 /**
  * Find podcast by id
@@ -20,13 +20,42 @@ exports.podcast = function(req, res, next, id) {
 };
 
 /**
- * Create a podcast
+ * Add a podcast
  */
+exports.add = function(req, res) {
+	var podcast = new Podcast(req.body);
+
+	podcast.save(function(err) {
+		if(err) {
+			return res.send('users/signup', {
+				errors: err.errors,
+				podcast: podcast
+			});
+		} else {
+			res.jsonp(podcast);
+		}
+	});
+};
 
 /**
  * Update a podcast
  */
+exports.update = function(req, res) {
+	var podcast = req.podcast;
 
+	podcast = _.extend(podcast, req.body);
+
+	podcast.save(function(err) {
+		if(err) {
+			return res.send('users/signup', {
+				errors: err.errors,
+				podcast: podcast
+			});
+		} else {
+			res.jsonp(podcast);
+		}
+	});
+};
 
 /**
  * Delete a podcast
