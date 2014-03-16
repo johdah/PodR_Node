@@ -11,6 +11,14 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/podcasts',
 			templateUrl: 'views/podcasts/list.html'
 		})
+		.state('create podcast', {
+			url: '/podcasts/add',
+			templateUrl: 'views/podcasts/create.html'
+		})
+		.state('edit podcast', {
+			url: '/podcasts/:podcastId/edit',
+			templateUrl: '/views/podcasts/edit.html'
+		})
 		.state('podcast by id', {
 			url: '/podcasts/:podcastId',
 			templateUrl: 'views/podcasts/view.html'

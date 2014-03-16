@@ -7,6 +7,9 @@ angular.module('podr.system').controllers('HeaderController', ['$scope', 'Global
 		{
 			'title': 'Podcasts',
 			'link': 'podcasts'
+		}, {
+			'title': 'Add New Podcast',
+			'link': 'podcasts/create',
 		}
 	];
 
