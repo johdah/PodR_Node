@@ -85,7 +85,7 @@ UserSchema.pre('save', function(next) {
 /**
  * Methods
  */
-UserSchema.Methods = {
+UserSchema.methods = {
 	/**
 	 * Authenticate - check if the passwords are the same
 	 *

@@ -27,7 +27,7 @@ exports.signin = function(req, res) {
  * Show sign up form
  */
 exports.signup = function(req, res) {
-	res.sender('users/signup', {
+	res.render('users/signup', {
 		title: 'Sign up',
 		user: new User()
 	});
