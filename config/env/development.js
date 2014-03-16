@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/podr-dev',
+	db: DB_URL || 'mongodb://localhost/podr-dev',
 	app: {
 		name: 'PodR - Development'
 	},
