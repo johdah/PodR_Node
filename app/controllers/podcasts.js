@@ -22,7 +22,7 @@ exports.podcast = function(req, res, next, id) {
 /**
  * Add a podcast
  */
-exports.add = function(req, res) {
+exports.create = function(req, res) {
 	var podcast = new Podcast(req.body);
 
 	podcast.save(function(err) {

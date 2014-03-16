@@ -4,12 +4,12 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 	$scope.global = Global;
 
 	$scope.create = function() {
-		var podcast = new Podcast({
+		var podcast = new Podcasts({
 			title: this.title,
 			url: this.url
-		});;
+		});
 		podcast.$save(function(response) {
-			$location.path('podcasts/' + response._id)
+			$location.path('podcasts/' + response._id);
 		});
 
 		this.title = '';
