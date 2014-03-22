@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	uniqueValidator = require('mongoose-unique-validator'),
 	Schema = mongoose.Schema;
 
 /**
@@ -11,6 +12,10 @@ var mongoose = require('mongoose'),
  */
 var PodcastSchema = new Schema({
 	created: {
+		type: Date,
+		default: Date.now
+	},
+	updated: {
 		type: Date,
 		default: Date.now
 	},
@@ -22,8 +27,44 @@ var PodcastSchema = new Schema({
 	url: {
 		type: String,
 		default: '',
-		trim: true
-	}
+		required: true,
+		trim: true,
+		unique: true
+	},
+	description: {
+		type: String,
+		default: ''
+	},
+	subtitle: {
+		type: String
+	},
+	link: {
+		type: String
+	},
+	author: {
+		type: String
+	},
+	language: {
+		type: String
+	},
+	imageTitle: {
+		type: String
+	},
+	imageUrl: {
+		type: String
+	},
+	copyright: {
+		type: String
+	},
+	ownerEmail: {
+		type: String
+	},
+	ownerName: {
+		type: String
+	},
+	block: Boolean,
+	explicit: Boolean,
+	complete: Boolean
 });
 
 /**
@@ -32,7 +73,6 @@ var PodcastSchema = new Schema({
 PodcastSchema.path('url').validate(function(url) {
 	return url.length;
 }, 'Url cannot be blank');
-
 /**
  * Statics
  */
@@ -41,5 +81,7 @@ PodcastSchema.statics.load = function(id, cb) {
 		_id: id
 	}).exec(cb);
 };
+
+PodcastSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 mongoose.model('Podcast', PodcastSchema);

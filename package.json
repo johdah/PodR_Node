@@ -20,6 +20,7 @@
 		"express":					"~3.4.7",
 		"consolidate":				"~0.10.0",
 		"mongoose":					"~3.8.3",
+		"mongoose-unique-validator":	"0.3.0",	
 		"connect-mongo":			"~0.4.0",
 		"connect-flash":			"~0.1.1",
 		"crypto":					"0.0.3",

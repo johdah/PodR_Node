@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', 'Global', 'Podcasts', 
-	function($scope, $stateParams, $location, Global, Podcasts) {
+angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', 'Global', 'Podcasts', function($scope, $stateParams, $location, Global, Podcasts) {
 	
 	$scope.global = Global;
 
@@ -10,8 +9,11 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			title: this.title,
 			url: this.url
 		});
-		podcast.$save(function(response) {
-			$location.path('podcasts/' + response._id);
+		podcast.$save(function(err, podcast) {
+			if(!err)
+				$location.path('podcasts/' + podcast._id);
+			
+			$scope.err = err;
 		});
 
 		this.title = '';
