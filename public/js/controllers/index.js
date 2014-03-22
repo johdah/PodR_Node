@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('podr.system').controllers('IndexController', ['$scope', 'Global', function($scope, Global) {
+angular.module('podr.system').controller('IndexController', ['$scope', 'Global', function($scope, Global) {
 	$scope.global = Global;
 }]);

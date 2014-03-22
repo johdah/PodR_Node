@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('podr.system').controllers('HeaderController', ['$scope', 'Global', function($scope, Global) {
+angular.module('podr.system').controller('HeaderController', ['$scope', 'Global', function($scope, Global) {
 	$scope.global = Global;
 
 	$scope.menu = [
