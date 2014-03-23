@@ -1,12 +1,65 @@
 <section data-ng-controller="PodcastsController" data-ng-init="findOne()">
-	<h2>{{podcast.title}}</h2>
-	<span>{{podcast.created | date:'medium'}}</span>
-	<div>
-		<a class="btn" href="/#!/podcasts/{{podcast._id}}/edit">
-			<em class="glyphicon glyphicon-edit"></em>
-		</a>
-		<a class="btn" data-ng-click="remove();">
-			<em class="glyphicon glyphicon-trash"></em>
-		</a>
+	<div class="row">
+		<div class="col-md-4">
+			<a href="#" class="thumbnail">
+				<img ng-if="podcast.imageUrl" src="{{podcast.imageUrl}}" alt="{{podcast.imageTitle}}" title="{{podcast.imageTitle}}" class="img-rounded img-responsive" />
+				<img ng-if="!podcast.imageUrl" data-src="holder.js/200x200/auto/text:{{podcast.title}}" class="img-rounded img-responsive" />
+			</a>
+			<h3>Info</h3>
+			<span>Added: {{podcast.created | date:'yyyy-MM-dd'}}</span>
+			<br />
+			<span>Updated: {{podcast.updated | date:'yyyy-MM-dd'}}</span>
+			<br /><br />
+			<span ng-if="podcast.language">Language: <span class="language">{{podcast.language}}</span></span>
+			<br />
+			<span ng-if="podcast.ownerName">Owner: <a href="mailto:{{podcast.ownerEmail}}" title="{{podcast.ownerName}}">{{podcast.ownerName}}</a></span>
+			<h4>Links</h4>
+			<ul>
+				<li><a href="{{podcast.url}}">Feed</a></li>
+				<li><a href="{{podcast.link}}">Site</a></li>
+			</ul>
+			<h4>Tools</h4>
+			<div class="tools">
+				<a class="btn" href="/#!/podcasts/{{podcast._id}}/edit">
+					<span class="glyphicon glyphicon-edit"></span> Edit
+				</a>
+				<br />
+				<a class="btn" data-ng-click="remove();">
+					<span class="glyphicon glyphicon-trash"></span> Remove
+				</a>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+				<li><a href="/#!/">Home</a></li>
+				<li><a href="/#!/podcasts">Podcasts</a></li>
+				<li class="active">Podcast</li>
+			</ol>
+
+			<div class="page-header">
+				<h1>{{podcast.title}} <small ng-if="podcast.author">{{podcast.author}}</small></h1>
+			</div>
+			<div class="alert alert-info" ng-if="podcast.complete">
+				<strong>Complete</strong> This podcast is discontinued
+			</div>
+			<div class="alert alert-warning" ng-if="podcast.explicit">
+				<strong>Explicit</strong> Parental advisory
+			</div>
+			<div class="panel panel-default" ng-if="podcast.description">
+				<div class="panel-body">
+					{{podcast.description}}
+				</div>
+				<div class="panel-footer">{{podcast.copyright}}</div>
+			</div>
+			<div class="panel panel-default">
+				<!-- Default panel contents -->
+				<div class="panel-heading">Episodes</div>
+
+				<!-- Table -->
+				<table class="table">
+				
+				</table>
+			</div>
+		</div>
 	</div>
 </section>
