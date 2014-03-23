@@ -15,7 +15,7 @@ var PodcastSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	updated: {
+	lastupdated: {
 		type: Date,
 		default: Date.now
 	},
