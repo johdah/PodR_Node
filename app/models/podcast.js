@@ -73,6 +73,9 @@ var PodcastSchema = new Schema({
 PodcastSchema.path('url').validate(function(url) {
 	return url.length;
 }, 'Url cannot be blank');
+
+PodcastSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.' });
+
 /**
  * Statics
  */
@@ -81,7 +84,5 @@ PodcastSchema.statics.load = function(id, cb) {
 		_id: id
 	}).exec(cb);
 };
-
-PodcastSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 mongoose.model('Podcast', PodcastSchema);
