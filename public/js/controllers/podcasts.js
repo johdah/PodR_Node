@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', 'Global', 'Podcasts', function($scope, $stateParams, $location, Global, Podcasts) {
+angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', '$http', 'Global', 'Podcasts', function($scope, $stateParams, $location, $http, Global, Podcasts) {
 	
 	$scope.global = Global;
 
@@ -45,6 +45,18 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		podcast.$update(function() {
 			$location.path('podcasts/' + podcast._id);
 		});
+	};
+
+	$scope.fetch = function() {
+		var podcast = $scope.podcast;
+
+		$http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
+			.success( function(data, status, headers, config) {
+				console.log(data);
+			})
+			.error( function(data, status, headers, config) {
+				console.log("Failed to update the podcast");
+			});
 	};
 
 	$scope.find = function() {

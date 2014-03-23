@@ -20,30 +20,25 @@ exports.podcast = function(req, res, next, id) {
 };
 
 /**
- * Add a podcast
+ * List of podcasts
  */
-exports.create = function(req, res) {
-	var podcast = new Podcast(req.body);
-
-	podcast.save(function(err) {
+exports.all = function(req, res) {
+	Podcast.find().sort('-title').exec(function(err, podcasts) {
 		if(err) {
-			return res.send('users/signup', {
-				errors: err.errors,
-				podcast: podcast
+			res.render('error', {
+				status: 500
 			});
 		} else {
-			res.jsonp(podcast);
+			res.jsonp(podcasts);
 		}
 	});
 };
 
 /**
- * Update a podcast
+ * Add a podcast
  */
-exports.update = function(req, res) {
-	var podcast = req.podcast;
-
-	podcast = _.extend(podcast, req.body);
+exports.create = function(req, res) {
+	var podcast = new Podcast(req.body);
 
 	podcast.save(function(err) {
 		if(err) {
@@ -76,6 +71,13 @@ exports.destroy = function(req, res) {
 };
 
 /**
+ * Fetch updates from the podcast feed
+ */
+exports.fetch = function(req, res) {
+	res.jsonp("Fetching the podcast is not yet implemented");
+};
+
+/**
  * Show a podcast
  */
 exports.show = function(req, res) {
@@ -83,16 +85,21 @@ exports.show = function(req, res) {
 };
 
 /**
- * List of podcasts
+ * Update a podcast
  */
-exports.all = function(req, res) {
-	Podcast.find().sort('-title').exec(function(err, podcasts) {
+exports.update = function(req, res) {
+	var podcast = req.podcast;
+
+	podcast = _.extend(podcast, req.body);
+
+	podcast.save(function(err) {
 		if(err) {
-			res.render('error', {
-				status: 500
+			return res.send('users/signup', {
+				errors: err.errors,
+				podcast: podcast
 			});
 		} else {
-			res.jsonp(podcasts);
+			res.jsonp(podcast);
 		}
 	});
 };

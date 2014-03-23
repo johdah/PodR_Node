@@ -17,7 +17,8 @@ module.exports = function(app) {
 	app.post('/podcasts', authorization.requiresLogin, podcasts.create);
 	app.get('/podcasts/:podcastId', podcasts.show);
 	app.put('/podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.update);
-	app.del('podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.destroy);
+	app.del('/podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.destroy);
+	app.get('/podcasts/update/:podcastId', authorization.requiresLogin, podcasts.fetch);
 
 	// Finish with setting up the podcastId param
 	app.param('podcastId', podcasts.podcast);
