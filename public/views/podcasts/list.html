@@ -7,7 +7,8 @@
 			</a>
 			<div class="media-body">
 				<h4 class="media-heading"><a data-ng-href="#!/podcasts/{{podcast._id}}">{{podcast.title}}</a></h4>
-				<p>{{podcast.subtitle}}</p>
+				<p ng-if="podcast.subtitle">{{podcast.subtitle}}</p>
+				<p ng-if="!podcast.subtitle">There is no subtitle for this podcast</p>
 				<span class="lastUpdated"><em>{{ podcast.updated | date:'yyyy-MM-dd' }}</em></span>
 			</div>
 		</li>
