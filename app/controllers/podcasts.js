@@ -83,16 +83,34 @@ exports.fetch = function(req, response) {
 	http.get(podcast.url, function(res) {
 		res.pipe(new FeedParser({}))
 			.on('error', function(error) {
-				// TODO: We had a melt-down
+				response.jsonp({
+					success: false
+				})
 			})
 			.on('meta', function(meta) {
+				console.log(meta);
+
+				// TODO: Author
+				// TODO: Block
+				// TODO: Complete
 				podcast.copyright = meta.copyright;
-				podcast.description = meta.description;
+				// TODO: Probably not a good if-case
+				podcast.description = (meta['itunes:summary']['#'] !== undefined) ? meta['itunes:summary']['#'] : meta.description;
+				// TODO: Explicit
+				podcast.imageTitle = meta.image.title;
+				podcast.imageUrl = meta.image.url;
+				podcast.language = meta.language;
+				podcast.link = meta.link;
+				// TODO: Owner
+				podcast.subtitle = meta['itunes:subtitle'];
 				podcast.title = meta.title;
+
+				podcast.lastupdated = Date.now();
 			})
 			.on('readable', function() {
 				var stream = this, item;
 				while (item = stream.read()) {
+					//console.log(item);
 					// Each 'readable' event will contain one episode
 					var episode = {
 						'title': item.title,
