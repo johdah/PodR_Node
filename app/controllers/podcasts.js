@@ -3,9 +3,11 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
+var _ = require('lodash'),
+	mongoose = require('mongoose'),
+	http = require('http'),
 	Podcast = mongoose.model('Podcast'),
-	_ = require('lodash');
+	FeedParser = require('feedparser');
 
 /**
  * Find podcast by id
@@ -73,8 +75,51 @@ exports.destroy = function(req, res) {
 /**
  * Fetch updates from the podcast feed
  */
-exports.fetch = function(req, res) {
-	res.jsonp("Fetching the podcast is not yet implemented");
+exports.fetch = function(req, response) {
+	var podcast = req.podcast;
+	var feedMeta;
+	var episodes = [];
+
+	http.get(podcast.url, function(res) {
+		res.pipe(new FeedParser({}))
+			.on('error', function(error) {
+				// TODO: We had a melt-down
+			})
+			.on('meta', function(meta) {
+				podcast.copyright = meta.copyright;
+				podcast.description = meta.description;
+				podcast.title = meta.title;
+			})
+			.on('readable', function() {
+				var stream = this, item;
+				while (item = stream.read()) {
+					// Each 'readable' event will contain one episode
+					var episode = {
+						'title': item.title,
+						'mediaUrl': item.link,
+						'pubDate': item.pubDate
+					};
+					episodes.push(episode);
+				}
+			})
+			.on('end', function() {
+				podcast.save(function(err) {
+					if(err) {
+						response.jsonp({
+							success: false
+						})
+					} else {
+						response.jsonp({
+							success: true,
+							newEpisodesCount: episodes.length,
+							episodes: episodes,
+							podcast: podcast
+						});
+					}
+				});
+
+			});
+	});
 };
 
 /**
