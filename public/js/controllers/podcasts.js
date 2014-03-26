@@ -9,6 +9,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			title: this.title,
 			url: this.url
 		});
+		console.log(podcast);
 		podcast.$save(function(err, podcast) {
 			if(!err)
 				$location.path('podcasts/' + podcast._id);

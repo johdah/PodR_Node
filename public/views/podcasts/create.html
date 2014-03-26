@@ -9,12 +9,9 @@
 
 		<div class="form-group">
 			<label for="url" class="col-md-2 control-label">Url</label>
-			<div class="col-md-10" ng-if="!err.errors.url">
+			<div class="col-md-10">
 				<input type="url" class="form-control" data-ng-model="url" id="url" placeholder="Url" required />
-			</div>
-			<div class="col-md-10 has-error has-feedback" ng-if="err.errors.url">
-				<input type="url" class="form-control" data-ng-model="url" id="url" placeholder="Url" required />
-  				<label class="control-label" for="url">{{err.errors.url.message}}</label>
+  				<label class="control-label" for="url" ng-if="err.errors.url">{{err.errors.url.message}}</label>
 			</div>
 		</div>
 

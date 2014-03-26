@@ -77,34 +77,52 @@ exports.destroy = function(req, res) {
  */
 exports.fetch = function(req, response) {
 	var podcast = req.podcast;
-	var feedMeta;
 	var episodes = [];
 
 	http.get(podcast.url, function(res) {
 		res.pipe(new FeedParser({}))
 			.on('error', function(error) {
 				response.jsonp({
-					success: false
-				})
+					success: false,
+					error: error
+				});
 			})
 			.on('meta', function(meta) {
-				console.log(meta);
+				// TODO: Error handling
+				if(meta['itunes:author'] !== undefined)
+					podcast.author = meta['itunes:author']['#'];
 
-				// TODO: Author
-				// TODO: Block
-				// TODO: Complete
+				if(meta['itunes:block'] !== undefined)
+					podcast.block = (meta['itunes:block']['#']).toLowerCase() === 'yes';
+				if(meta['itunes:complete'] !== undefined)
+					podcast.complete = (meta['itunes:complete']['#']).toLowerCase() === 'yes';
 				podcast.copyright = meta.copyright;
+
 				// TODO: Probably not a good if-case
-				podcast.description = (meta['itunes:summary']['#'] !== undefined) ? meta['itunes:summary']['#'] : meta.description;
-				// TODO: Explicit
+				if(meta['itunes:summary'] !== undefined)
+					podcast.description = meta['itunes:summary']['#'];
+				else
+					podcast.description = meta.description;
+
+				if(meta['itunes:explicit'] !== undefined)
+					podcast.explicit = (meta['itunes:explicit']['#']).toLowerCase() === 'yes';
+
 				podcast.imageTitle = meta.image.title;
 				podcast.imageUrl = meta.image.url;
 				podcast.language = meta.language;
 				podcast.link = meta.link;
-				// TODO: Owner
-				podcast.subtitle = meta['itunes:subtitle'];
-				podcast.title = meta.title;
 
+				if(meta['itunes:owner'] !== undefined) {
+					if(meta['itunes:owner']['itunes:email'] !== undefined)
+						podcast.ownerEmail = meta['itunes:owner']['itunes:email']['#'];
+					if(meta['itunes:owner']['itunes:name'] !== undefined)
+						podcast.ownerName = meta['itunes:owner']['itunes:name']['#'];
+				}
+
+				if(meta['itunes:subtitle'] !== undefined)
+					podcast.subtitle = meta['itunes:subtitle']['#'];
+
+				podcast.title = meta.title;
 				podcast.lastupdated = Date.now();
 			})
 			.on('readable', function() {
@@ -124,8 +142,9 @@ exports.fetch = function(req, response) {
 				podcast.save(function(err) {
 					if(err) {
 						response.jsonp({
-							success: false
-						})
+							success: false,
+							error: err
+						});
 					} else {
 						response.jsonp({
 							success: true,
@@ -135,7 +154,6 @@ exports.fetch = function(req, response) {
 						});
 					}
 				});
-
 			});
 	});
 };
