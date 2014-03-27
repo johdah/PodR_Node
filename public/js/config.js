@@ -23,6 +23,14 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/podcasts/:podcastId',
 			templateUrl: 'views/podcasts/view.html'
 		})
+		.state('all episodes', {
+			url: '/episodes',
+			templateUrl: 'views/episodes/list.html'
+		})
+		.state('episode by id', {
+			url: '/episodes/:episodeId',
+			templateUrl: 'views/episodes/view.html'
+		})
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/index.html'
