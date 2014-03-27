@@ -122,6 +122,9 @@ exports.fetch = function(req, response) {
 				if(meta['itunes:subtitle'] !== undefined)
 					podcast.subtitle = meta['itunes:subtitle']['#'];
 
+				if(meta['itunes:new-feed-url'] !== undefined)
+					podcast.url = meta['itunes:new-feed-url']['#'];
+
 				podcast.title = meta.title;
 				podcast.lastupdated = Date.now();
 			})

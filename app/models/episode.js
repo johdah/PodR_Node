@@ -1,0 +1,71 @@
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+    uniqueValidator = require('mongoose-unique-validator'),
+    Schema = mongoose.Schema;
+
+/**
+ * Episode Schema
+ */
+var EpisodeSchema = new Schema({
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    published: {
+        type: Date,
+        default: Date.now
+    },
+    title: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    guid: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    subtitle: {
+        type: String
+    },
+    author: {
+        type: String
+    },
+    duration: {
+        type: Number,
+        default: -1
+    },
+    imageTitle: {
+        type: String
+    },
+    imageUrl: {
+        type: String
+    },
+    block: Boolean,
+    explicit: Boolean,
+    closedcaptioned: Boolean
+});
+
+/**
+ * Validations
+ */
+EpisodeSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.' });
+
+/**
+ * Statics
+ */
+EpisodeSchema.statics.load = function(id, cb) {
+    this.findOne({
+        _id: id
+    }).exec(cb);
+};
+
+mongoose.model('Episode', EpisodeSchema);
