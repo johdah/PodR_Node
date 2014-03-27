@@ -1,0 +1,43 @@
+<section data-ng-controller="EpisodesController" data-ng-init="findOne()">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="#" class="thumbnail">
+                <img ng-if="episode.imageUrl" src="{{episode.imageUrl}}" alt="{{episode.imageTitle}}" title="{{episode.imageTitle}}" class="img-rounded img-responsive" />
+                <img ng-if="!episode.imageUrl" data-src="holder.js/200x200/auto/sky" class="img-rounded img-responsive" />
+            </a>
+            <h3>Info</h3>
+            <span>Published: {{episode.published | date:'yyyy-MM-dd'}}</span>
+            <br /><br />
+            <span ng-if="episode.ownerName">Owner: <a href="mailto:{{episode.ownerEmail}}" title="{{episode.ownerName}}">{{episode.ownerName}}</a></span>
+            <h4>Links</h4>
+            <ul>
+            </ul>
+            <h4>Tools</h4>
+            <div class="tools">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ol class="breadcrumb">
+                <li><a href="/#!/">Home</a></li>
+                <li><a href="/#!/episodes">Episodes</a></li>
+                <li class="active">Episode</li>
+            </ol>
+
+            <div class="page-header">
+                <h1>{{episode.title}} <small ng-if="episode.author">{{episode.author}}</small></h1>
+            </div>
+            <div class="alert alert-info" ng-if="episode.closedcaptioned">
+                <strong>Closed Captioned</strong> This episode is closed captioned
+            </div>
+            <div class="alert alert-warning" ng-if="episode.explicit">
+                <strong>Explicit</strong> Parental advisory
+            </div>
+            <div class="panel panel-default" ng-if="episode.description">
+                <div class="panel-body">
+                    {{episode.description}}
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </div>
+</section>
