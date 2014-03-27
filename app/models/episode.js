@@ -19,6 +19,10 @@ var EpisodeSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    podcast: {
+        type: Schema.ObjectId,
+        ref: 'Podcast'
+    },
     title: {
         type: String,
         default: '',
@@ -65,7 +69,7 @@ EpisodeSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.'
 EpisodeSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).exec(cb);
+    }).populate('podcast', 'title guid').exec(cb);
 };
 
 mongoose.model('Episode', EpisodeSchema);
