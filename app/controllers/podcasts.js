@@ -132,28 +132,68 @@ exports.fetch = function(req, response) {
 			.on('readable', function() {
 				var stream = this, item;
 				while (item = stream.read()) {
-					// Each 'readable' event will contain one episode
+                    // Each 'readable' event will contain one episode
                     var episode = new Episode();
+                    episode.created = Date.now();
                     episode.title = item.title;
                     episode.podcast = podcast;
                     episode.guid = item.guid;
                     episode.published = item.pubDate;
+                    episode.imageTitle = item.image.title;
+                    episode.imageUrl = item.image.url;
+
+                    if (item['itunes:author'] !== undefined)
+                        episode.author = item['itunes:author']['#'];
+
+                    if (item['itunes:block'] !== undefined)
+                        episode.block = (item['itunes:block']['#']).toLowerCase() === 'yes';
+
+                    if (item['itunes:duration'] !== undefined) {
+                        episode.duration = stringTimeToSeconds(item['itunes:duration']['#']);
+                    }
+
+                    if(item['itunes:explicit'] !== undefined)
+                        episode.explicit = (item['itunes:explicit']['#']).toLowerCase() === 'yes';
+
+                    if(item['itunes:isClosedCaptioned'] !== undefined)
+                        episode.closedcaptioned = (item['itunes:isClosedCaptioned']['#']).toLowerCase() === 'yes';
+
+                    if(item['itunes:block'] !== undefined)
+                        episode.block = (item['itunes:block']['#']).toLowerCase() === 'yes';
+
+                    if(item['itunes:subtitle'] !== undefined)
+                        episode.subtitle = item['itunes:subtitle']['#'];
+
+                    // TODO: Probably not a good if-case
+                    if(item['itunes:summary'] !== undefined)
+                        episode.description = item['itunes:summary']['#'];
+                    else
+                        episode.description = item.description;
+
+                    if(item['rss:enclosure'] !== undefined) {
+                        if(item['rss:enclosure']['@'].length !== undefined)
+                            episode.enclosureLength = item['rss:enclosure']['@'].length;
+                        if(item['rss:enclosure']['@'].type !== undefined)
+                            episode.enclosureType = item['rss:enclosure']['@'].type;
+                        if(item['rss:enclosure']['@'].url !== undefined)
+                            episode.enclosureUrl = item['rss:enclosure']['@'].url;
+                    }
+
+                    Episode.count({guid: episode.guid}, function (err, count) {
+                        if(count == 0) {
+                            episode.save(function (err) {
+                                if (err)
+                                    console.log(episode.title + " " + err)
+                                // Saved
+                                console.log("Added " + episode.title)
+                            });
+                        }
+                    });
 
 					episodes.push(episode);
 				}
 			})
 			.on('end', function() {
-                for (var i = 0; i < episodes.length; i++) {
-                    var episode = episodes[i];
-
-                    if(Episode.findOne({guid: episode.guid}) !== undefined)
-                        episode.save(function(err) {
-                            if(err)
-                                console.log(episode.title + " not saved")
-                            // Saved
-                        });
-                }
-
 				podcast.save(function(err) {
 					if(err) {
 						response.jsonp({
@@ -199,3 +239,15 @@ exports.update = function(req, res) {
 		}
 	});
 };
+
+/** Utils **/
+function stringTimeToSeconds(input) {
+    var seconds = 0;
+
+    var timeArray = input.split(':');
+    for(var i = 0; i < timeArray.length; i++) {
+        seconds = seconds * 60 + timeArray[i];
+    }
+
+    return seconds;
+}

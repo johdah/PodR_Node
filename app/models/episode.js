@@ -53,6 +53,16 @@ var EpisodeSchema = new Schema({
     imageUrl: {
         type: String
     },
+    enclosureLength: {
+        type: Number,
+        default: -1
+    },
+    enclosureType: {
+        type: String
+    },
+    enclosureUrl: {
+        type: String
+    },
     block: Boolean,
     explicit: Boolean,
     closedcaptioned: Boolean
