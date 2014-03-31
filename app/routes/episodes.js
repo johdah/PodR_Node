@@ -12,6 +12,7 @@ var hasAuthorization = function(req, res, next) {
 
 module.exports = function(app) {
     app.get('/episodes', episodes.all);
+    app.get('/episodes/podcast/:podcastId', episodes.allByPodcast);
     app.get('/episodes/:episodeId', episodes.show);
 
     // Finish with setting up the episodeId param

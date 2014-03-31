@@ -61,7 +61,16 @@
 
 				<!-- Table -->
 				<table class="table">
-				
+				    <thead>
+                        <th>Title</th>
+                        <th>Published</th>
+				    </thead>
+                    <tbody>
+                        <tr ng-repeat="episode in episodes">
+                            <td>{{ episode.title }}</td>
+                            <td>{{ episode.published }}</td>
+                        </tr>
+                    </tbody>
 				</table>
 			</div>
 		</div>

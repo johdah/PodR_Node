@@ -9,7 +9,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			title: this.title,
 			url: this.url
 		});
-		console.log(podcast);
 		podcast.$save(function(err, podcast) {
 			if(!err)
 				$location.path('podcasts/' + podcast._id);
@@ -53,7 +52,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 
 		$http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
 			.success( function(data, status, headers, config) {
-				console.log(data);
 				$location.path('podcasts/' + podcast._id);
 			})
 			.error( function(data, status, headers, config) {
@@ -72,6 +70,14 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			podcastId: $stateParams.podcastId
 		}, function(podcast) {
 			$scope.podcast = podcast;
+
+            $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
+                .success( function(data, status, headers, config) {
+                    $scope.episodes = data;
+                })
+                .error( function(data, status, headers, config) {
+                    console.log("Failed to update the podcast");
+                });
 		});
 	};
 }]);

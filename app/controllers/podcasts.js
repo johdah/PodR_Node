@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	http = require('http'),
 	Podcast = mongoose.model('Podcast'),
+    Episode = mongoose.model('Episode'),
 	FeedParser = require('feedparser');
 
 /**
@@ -131,17 +132,28 @@ exports.fetch = function(req, response) {
 			.on('readable', function() {
 				var stream = this, item;
 				while (item = stream.read()) {
-					//console.log(item);
 					// Each 'readable' event will contain one episode
-					var episode = {
-						'title': item.title,
-						'mediaUrl': item.link,
-						'pubDate': item.pubDate
-					};
+                    var episode = new Episode();
+                    episode.title = item.title;
+                    episode.podcast = podcast;
+                    episode.guid = item.guid;
+                    episode.published = item.pubDate;
+
 					episodes.push(episode);
 				}
 			})
 			.on('end', function() {
+                for (var i = 0; i < episodes.length; i++) {
+                    var episode = episodes[i];
+
+                    if(Episode.findOne({guid: episode.guid}) !== undefined)
+                        episode.save(function(err) {
+                            if(err)
+                                console.log(episode.title + " not saved")
+                            // Saved
+                        });
+                }
+
 				podcast.save(function(err) {
 					if(err) {
 						response.jsonp({
