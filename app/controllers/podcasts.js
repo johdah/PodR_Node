@@ -127,14 +127,14 @@ exports.fetch = function(req, response) {
 					podcast.url = meta['itunes:new-feed-url']['#'];
 
 				podcast.title = meta.title;
-				podcast.lastupdated = Date.now();
+				podcast.updated = Date.now();
 			})
 			.on('readable', function() {
 				var stream = this, item;
 				while (item = stream.read()) {
                     // Each 'readable' event will contain one episode
                     var episode = new Episode();
-                    episode.created = Date.now();
+                    episode.created = podcast.updated;
                     episode.title = item.title;
                     episode.podcast = podcast;
                     episode.guid = item.guid;

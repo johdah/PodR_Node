@@ -8,7 +8,7 @@
 			<h3>Info</h3>
 			<span>Added: {{podcast.created | date:'yyyy-MM-dd'}}</span>
 			<br />
-			<span>Updated: {{podcast.lastupdated | date:'yyyy-MM-dd'}}</span>
+			<span>Updated: {{podcast.updated | date:'yyyy-MM-dd'}}</span>
 			<br /><br />
 			<span ng-if="podcast.language">Language: <span class="language">{{podcast.language}}</span></span>
 			<br />
@@ -60,15 +60,15 @@
 				<div class="panel-heading">Episodes</div>
 
 				<!-- Table -->
-				<table class="table">
+				<table class="table" id="episodes">
 				    <thead>
                         <th>Title</th>
                         <th>Published</th>
 				    </thead>
                     <tbody>
-                        <tr ng-repeat="episode in episodes">
-                            <td>{{ episode.title }}</td>
-                            <td>{{ episode.published }}</td>
+                        <tr class="episode" ng-repeat="episode in episodes">
+                            <td class="title">{{ episode.title }} <span class="badge" ng-if="podcast.updated == episode.created">New</span></td>
+                            <td class="publishedDate">{{ episode.published }}</td>
                         </tr>
                     </tbody>
 				</table>

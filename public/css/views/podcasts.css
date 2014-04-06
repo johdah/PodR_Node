@@ -5,3 +5,7 @@ h1 {
 ul.podcasts li:not(:last-child) {
 	border-bottom: 1px solid #ccc;
 }
+
+#episodes .title .badge {
+    float: right;
+}
