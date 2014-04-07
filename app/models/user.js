@@ -27,7 +27,11 @@ var UserSchema = new Schema({
 	github: {},
 	google: {},
 	linkedin: {},
-	twitter: {}
+	twitter: {},
+    userPodcasts: {
+        type: Schema.ObjectId,
+        ref: 'UserPodcast'
+    }
 });
 
 /**

@@ -6,8 +6,9 @@
 var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	http = require('http'),
-	Podcast = mongoose.model('Podcast'),
     Episode = mongoose.model('Episode'),
+	Podcast = mongoose.model('Podcast'),
+	UserPodcast = mongoose.model('UserPodcast'),
 	FeedParser = require('feedparser');
 
 /**
@@ -43,6 +44,12 @@ exports.all = function(req, res) {
 exports.create = function(req, res) {
 	var podcast = new Podcast(req.body);
 
+    var up = new UserPodcast();
+    up.podcast = podcast;
+    up.user = req.user;
+    up.following = true;
+
+    podcast.userPodcasts.push(up);
 	podcast.save(function(err) {
 		if(err) {
 			return res.send('users/signup', {
@@ -50,6 +57,7 @@ exports.create = function(req, res) {
 				podcast: podcast
 			});
 		} else {
+
 			res.jsonp(podcast);
 		}
 	});

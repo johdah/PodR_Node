@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	uniqueValidator = require('mongoose-unique-validator'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+    ObjectId = Schema.Types.ObjectId;
 
 /**
  * Podcast Schema
@@ -64,7 +65,11 @@ var PodcastSchema = new Schema({
 	},
 	block: Boolean,
 	explicit: Boolean,
-	complete: Boolean
+	complete: Boolean,
+    userPodcasts: [{
+        type: ObjectId,
+        ref: 'UserPodcast'
+    }]
 });
 
 /**
@@ -82,7 +87,7 @@ PodcastSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.'
 PodcastSchema.statics.load = function(id, cb) {
 	this.findOne({
 		_id: id
-	}).exec(cb);
+	}).populate('userPodcasts.following').exec(cb);
 };
 
 mongoose.model('Podcast', PodcastSchema);

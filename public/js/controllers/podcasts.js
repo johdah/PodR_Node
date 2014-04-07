@@ -70,6 +70,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			podcastId: $stateParams.podcastId
 		}, function(podcast) {
 			$scope.podcast = podcast;
+            console.log($scope.podcast);
 
             $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
                 .success( function(data, status, headers, config) {
