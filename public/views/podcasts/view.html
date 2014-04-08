@@ -5,6 +5,21 @@
 				<img ng-if="podcast.imageUrl" src="{{podcast.imageUrl}}" alt="{{podcast.imageTitle}}" title="{{podcast.imageTitle}}" class="img-rounded img-responsive" />
 				<img ng-if="!podcast.imageUrl" data-src="holder.js/200x200/auto/sky" class="img-rounded img-responsive" />
 			</a>
+
+            <div>
+                <button type="button" data-ng-click="follow();" ng-if="!userPodcast.following" class="btn btn-lg btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Follow
+                </button>
+                <button type="button" data-ng-click="unfollow();" ng-if="userPodcast.following" class="btn btn-lg btn-labeled btn-danger">
+                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Unfollow
+                </button>
+                <button type="button" data-ng-click="star();" ng-if="!userPodcast.starred" class="btn btn-lg btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Star
+                </button>
+                <button type="button" data-ng-click="unstar();" ng-if="userPodcast.starred" class="btn btn-lg btn-labeled btn-danger">
+                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Unstar
+                </button>
+            </div>
 			<h3>Info</h3>
 			<span>Added: {{podcast.created | date:'yyyy-MM-dd'}}</span>
 			<br />

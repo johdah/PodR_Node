@@ -237,10 +237,102 @@ exports.getUserPodcast = function(req, res) {
 };
 
 /**
+ * Follow podcast
+ */
+exports.followPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.following = true;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
  * Show a podcast
  */
 exports.show = function(req, res) {
 	res.jsonp(req.podcast);
+};
+
+/**
+ * Star podcast
+ */
+exports.starPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.starred = true;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
+ * Unfollow podcast
+ */
+exports.unfollowPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.following = false;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
+ * Follow podcast
+ */
+exports.unstarPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.starred = false;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
 };
 
 /**

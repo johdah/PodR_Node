@@ -89,4 +89,48 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
                 });
 		});
 	};
+
+    $scope.follow = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/follow/' + podcast._id })
+            .success( function(data, status, headers, config) {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function(data, status, headers, config) {
+            });
+    };
+
+    $scope.star = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/star/' + podcast._id })
+            .success( function(data, status, headers, config) {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function(data, status, headers, config) {
+            });
+    };
+
+    $scope.unfollow = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/unfollow/' + podcast._id })
+            .success( function(data, status, headers, config) {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function(data, status, headers, config) {
+            });
+    };
+
+    $scope.unstar = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/unstar/' + podcast._id })
+            .success( function(data, status, headers, config) {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function(data, status, headers, config) {
+            });
+    };
 }]);
