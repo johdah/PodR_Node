@@ -222,6 +222,21 @@ exports.fetch = function(req, response) {
 };
 
 /**
+ * Get an UserPodcast
+ */
+exports.getUserPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            res.jsonp(err);
+        else
+            res.jsonp(up);
+    });
+};
+
+/**
  * Show a podcast
  */
 exports.show = function(req, res) {

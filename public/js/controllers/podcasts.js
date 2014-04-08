@@ -70,7 +70,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			podcastId: $stateParams.podcastId
 		}, function(podcast) {
 			$scope.podcast = podcast;
-            console.log($scope.podcast);
 
             $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
                 .success( function(data, status, headers, config) {
@@ -78,6 +77,15 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
                 })
                 .error( function(data, status, headers, config) {
                     console.log("Failed to update the podcast");
+                });
+
+            $http({ method: 'GET', url: 'podcasts/userpodcast/' + podcast._id })
+                .success( function(data, status, headers, config) {
+                    $scope.userPodcast = data;
+                    console.log($scope.userPodcast);
+                })
+                .error( function(data, status, headers, config) {
+                    //console.log("Failed to fetch the userpodcast");
                 });
 		});
 	};

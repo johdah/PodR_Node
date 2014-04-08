@@ -67,7 +67,7 @@ var EpisodeSchema = new Schema({
     block: Boolean,
     explicit: Boolean,
     closedcaptioned: Boolean,
-    userEpisode: [{
+    userEpisodes: [{
         type: ObjectId,
         ref: 'UserEpisode'
     }]
