@@ -28,6 +28,10 @@ var UserSchema = new Schema({
 	google: {},
 	linkedin: {},
 	twitter: {},
+    userEpisode: {
+        type: Schema.ObjectId,
+        ref: 'UserEpisode'
+    },
     userPodcasts: {
         type: Schema.ObjectId,
         ref: 'UserPodcast'

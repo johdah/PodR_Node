@@ -1,16 +1,16 @@
 'use strict';
 
 /**
- * Module dependencies.
+ *
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
 
 /**
- * UserPodcast Schema
+ * UserEpisode Schema
  */
-var UserPodcastSchema = new Schema({
+var UserEpisodeSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
@@ -19,15 +19,15 @@ var UserPodcastSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    following: Boolean,
+    archived: Boolean,
     rating: {
         type: Number,
         default: 0
     },
     starred: Boolean,
-    podcast: {
+    episode: {
         type: ObjectId,
-        ref: 'Podcast'
+        ref: 'Episode'
     },
     user: {
         type: ObjectId,
@@ -38,10 +38,10 @@ var UserPodcastSchema = new Schema({
 /**
  * Statics
  */
-UserPodcastSchema.statics.load = function(id, cb) {
+UserEpisodeSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
     }).exec(cb);
 };
 
-mongoose.model('UserPodcast', UserPodcastSchema);
+mongoose.model('UserEpisode', UserEpisodeSchema);

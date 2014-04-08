@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    ObjectId = Schema.Types.ObjectId;
 
 /**
  * Episode Schema
@@ -65,7 +66,11 @@ var EpisodeSchema = new Schema({
     },
     block: Boolean,
     explicit: Boolean,
-    closedcaptioned: Boolean
+    closedcaptioned: Boolean,
+    userEpisode: [{
+        type: ObjectId,
+        ref: 'UserEpisode'
+    }]
 });
 
 /**
