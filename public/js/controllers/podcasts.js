@@ -82,7 +82,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             $http({ method: 'GET', url: 'podcasts/userpodcast/' + podcast._id })
                 .success( function(data) {
                     $scope.userPodcast = data;
-                    console.log($scope.userPodcast);
                 })
                 .error( function() {
                     //console.log("Failed to fetch the userpodcast");

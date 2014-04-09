@@ -20,7 +20,6 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
             $http({ method: 'GET', url: 'episodes/userepisode/' + episode._id })
                 .success( function(data) {
                     $scope.userEpisode = data;
-                    console.log($scope.userEpisode);
                 })
                 .error( function() {
                     //console.log("Failed to fetch the userepisode");
