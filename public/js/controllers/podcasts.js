@@ -51,11 +51,11 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		var podcast = $scope.podcast;
 
 		$http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
-			.success( function(data, status, headers, config) {
+			.success( function() {
 				$location.path('podcasts/' + podcast._id);
 			})
-			.error( function(data, status, headers, config) {
-				console.log("Failed to update the podcast");
+			.error( function() {
+				console.log('Failed to update the podcast');
 			});
 	};
 
@@ -72,21 +72,21 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 			$scope.podcast = podcast;
 
             $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
-                .success( function(data, status, headers, config) {
+                .success( function(data) {
                     $scope.episodes = data;
                 })
-                .error( function(data, status, headers, config) {
-                    console.log("Failed to update the podcast");
+                .error( function() {
+                    console.log('Failed to update the podcast');
                 });
 
             $http({ method: 'GET', url: 'podcasts/userpodcast/' + podcast._id })
-                .success( function(data, status, headers, config) {
+                .success( function(data) {
                     $scope.userPodcast = data;
                     console.log($scope.userPodcast);
                 })
-                .error( function(data, status, headers, config) {
+                .error( function() {
                     //console.log("Failed to fetch the userpodcast");
-                });
+            });
 		});
 	};
 
@@ -94,43 +94,43 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/follow/' + podcast._id })
-            .success( function(data, status, headers, config) {
+            .success( function() {
                 $location.path('podcasts/' + podcast._id);
             })
-            .error( function(data, status, headers, config) {
-            });
+            .error( function() {
+        });
     };
 
     $scope.star = function() {
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/star/' + podcast._id })
-            .success( function(data, status, headers, config) {
+            .success(function () {
                 $location.path('podcasts/' + podcast._id);
             })
-            .error( function(data, status, headers, config) {
-            });
+            .error( function() {
+        });
     };
 
     $scope.unfollow = function() {
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/unfollow/' + podcast._id })
-            .success( function(data, status, headers, config) {
+            .success( function() {
                 $location.path('podcasts/' + podcast._id);
             })
-            .error( function(data, status, headers, config) {
-            });
+            .error( function() {
+        });
     };
 
     $scope.unstar = function() {
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/unstar/' + podcast._id })
-            .success( function(data, status, headers, config) {
+            .success( function() {
                 $location.path('podcasts/' + podcast._id);
             })
-            .error( function(data, status, headers, config) {
-            });
+            .error( function() {
+        });
     };
 }]);

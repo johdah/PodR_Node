@@ -188,12 +188,12 @@ exports.fetch = function(req, response) {
                     }
 
                     Episode.count({guid: episode.guid}, function (err, count) {
-                        if(count == 0) {
+                        if(count === 0) {
                             episode.save(function (err) {
                                 if (err)
-                                    console.log(episode.title + " " + err)
+                                    console.log(episode.title + ' ' + err);
                                 // Saved
-                                console.log("Added " + episode.title)
+                                console.log('Added ' + episode.title);
                             });
                         }
                     });
@@ -313,7 +313,7 @@ exports.unfollowPodcast = function(req, res) {
 };
 
 /**
- * Follow podcast
+ * Unstar podcast
  */
 exports.unstarPodcast = function(req, res) {
     UserPodcast.findOne({

@@ -5,6 +5,22 @@
                 <img ng-if="episode.imageUrl" src="{{episode.imageUrl}}" alt="{{episode.imageTitle}}" title="{{episode.imageTitle}}" class="img-rounded img-responsive" />
                 <img ng-if="!episode.imageUrl" data-src="holder.js/200x200/auto/sky" class="img-rounded img-responsive" />
             </a>
+
+            <div>
+                <button type="button" data-ng-click="restore();" ng-if="!userEpisode.archived" class="btn btn-lg btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Add
+                </button>
+                <button type="button" data-ng-click="archive();" ng-if="userEpisode.archived" class="btn btn-lg btn-labeled btn-danger">
+                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Archive
+                </button>
+                <button type="button" data-ng-click="star();" ng-if="!userEpisode.starred" class="btn btn-lg btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Star
+                </button>
+                <button type="button" data-ng-click="unstar();" ng-if="userEpisode.starred" class="btn btn-lg btn-labeled btn-danger">
+                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Unstar
+                </button>
+            </div>
+
             <h3>Info</h3>
             <span>Published: {{episode.published | date:'yyyy-MM-dd'}}</span>
             <br /><br />

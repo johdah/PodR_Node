@@ -13,9 +13,9 @@ var hasAuthorization = function(req, res, next) {
 
 // Defining routes
 module.exports = function(app) {
-	app.get('/podcasts', podcasts.all);
+	app.get('/podcasts', authorization.requiresLogin, podcasts.all);
 	app.post('/podcasts', authorization.requiresLogin, podcasts.create);
-	app.get('/podcasts/:podcastId', podcasts.show);
+	app.get('/podcasts/:podcastId', authorization.requiresLogin, podcasts.show);
 	app.put('/podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.update);
 	app.del('/podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.destroy);
 	app.get('/podcasts/update/:podcastId', authorization.requiresLogin, podcasts.fetch);

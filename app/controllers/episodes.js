@@ -5,7 +5,8 @@
  */
 var _ = require('lodash'),
     mongoose = require('mongoose'),
-    Episode = mongoose.model('Episode');
+    Episode = mongoose.model('Episode'),
+    UserEpisode = mongoose.model('UserEpisode');
 
 /**
  * Find episode by id
@@ -50,6 +51,29 @@ exports.allByPodcast = function(req, res) {
 };
 
 /**
+ * Archive episode
+ */
+exports.archiveEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.archived = true;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
  * Add an episode
  */
 exports.create = function(req, res) {
@@ -86,10 +110,94 @@ exports.destroy = function(req, res) {
 };
 
 /**
+ * Get an UserEpisode
+ */
+exports.getUserEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err)
+            res.jsonp(err);
+        else
+            res.jsonp(ue);
+    });
+};
+
+/**
+ * Restore episode
+ */
+exports.restoreEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err || ue === null)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.archived = false;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
  * Show an episode
  */
 exports.show = function(req, res) {
     res.jsonp(req.episode);
+};
+
+/**
+ * Star episode
+ */
+exports.starEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.starred = true;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
+ * Unstar episode
+ */
+exports.unstarEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.starred = false;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
 };
 
 /**
