@@ -244,7 +244,7 @@ exports.followPodcast = function(req, res) {
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err)
+        if(err || up === null)
             up = new UserPodcast();
 
         up.podcast = req.podcast;
@@ -274,7 +274,7 @@ exports.starPodcast = function(req, res) {
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err)
+        if(err || up === null)
             up = new UserPodcast();
 
         up.podcast = req.podcast;
@@ -297,7 +297,7 @@ exports.unfollowPodcast = function(req, res) {
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err)
+        if(err || up === null)
             up = new UserPodcast();
 
         up.podcast = req.podcast;
@@ -320,7 +320,7 @@ exports.unstarPodcast = function(req, res) {
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err)
+        if(err || up === null)
             up = new UserPodcast();
 
         up.podcast = req.podcast;

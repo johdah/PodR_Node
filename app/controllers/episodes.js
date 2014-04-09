@@ -58,7 +58,7 @@ exports.archiveEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err)
+        if(err || ue === null)
             ue = new UserEpisode();
 
         ue.episode = req.episode;
@@ -162,7 +162,7 @@ exports.starEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err)
+        if(err || ue === null)
             ue = new UserEpisode();
 
         ue.episode = req.episode;
@@ -185,7 +185,7 @@ exports.unstarEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err)
+        if(err || ue === null)
             ue = new UserEpisode();
 
         ue.episode = req.episode;
