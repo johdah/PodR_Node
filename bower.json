@@ -2,6 +2,7 @@
 	"name": 		"podr",
 	"version":		"0.1.0",
 	"dependencies":	{
+		"jquery":				"latest",
 		"angular":				"latest",
 		"angular-resource":		"latest",
 		"angular-cookies":		"latest",

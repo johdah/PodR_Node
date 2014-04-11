@@ -11,7 +11,6 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
     };
 
     $scope.findOne = function() {
-        console.log('test');
         Episodes.get({
             episodeId: $stateParams.episodeId
         }, function(episode) {
