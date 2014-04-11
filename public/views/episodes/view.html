@@ -21,6 +21,14 @@
                 </button>
             </div>
 
+            <div class="ui-group-buttons">
+                <a href="javascript:void(0)" ng-if="userEpisode.rating==1" data-ng-click="like();" class="btn btn-success" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                <a href="javascript:void(0)" ng-if="userEpisode.rating!=1" data-ng-click="like();" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                <div class="or"></div>
+                <a href="javascript:void(0)" ng-if="userEpisode.rating==-1" data-ng-click="dislike();" class="btn btn-danger" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                <a href="javascript:void(0)" ng-if="userEpisode.rating!=-1" data-ng-click="dislike();" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+            </div>
+
             <h3>Info</h3>
             <span>Published: {{episode.published | date:'yyyy-MM-dd'}}</span>
             <br /><br />

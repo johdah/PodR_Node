@@ -9,6 +9,8 @@ module.exports = function(app) {
     app.get('/episodes/:episodeId', authorization.requiresLogin, episodes.show);
     app.get('/episodes/archive/:episodeId', authorization.requiresLogin, episodes.archiveEpisode);
     app.get('/episodes/podcast/:podcastId', authorization.requiresLogin, episodes.allByPodcast);
+    app.get('/episodes/dislike/:episodeId', authorization.requiresLogin, episodes.dislikeEpisode);
+    app.get('/episodes/like/:episodeId', authorization.requiresLogin, episodes.likeEpisode);
     app.get('/episodes/restore/:episodeId', authorization.requiresLogin, episodes.restoreEpisode);
     app.get('/episodes/star/:episodeId', authorization.requiresLogin, episodes.starEpisode);
     app.get('/episodes/unstar/:episodeId', authorization.requiresLogin, episodes.unstarEpisode);

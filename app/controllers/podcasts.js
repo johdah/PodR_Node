@@ -237,6 +237,29 @@ exports.getUserPodcast = function(req, res) {
 };
 
 /**
+ * Dislike podcast
+ */
+exports.dislikePodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err || up === null)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.rating = -1;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
  * Follow podcast
  */
 exports.followPodcast = function(req, res) {
@@ -250,6 +273,29 @@ exports.followPodcast = function(req, res) {
         up.podcast = req.podcast;
         up.user = req.user;
         up.following = true;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
+ * Like podcast
+ */
+exports.likePodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err || up === null)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.rating = 1;
         up.save(function(err) {
             if(err)
                 res.jsonp(err);

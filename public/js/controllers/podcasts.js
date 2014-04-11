@@ -89,6 +89,17 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		});
 	};
 
+    $scope.dislike = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/dislike/' + podcast._id })
+            .success( function() {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function() {
+            });
+    };
+
     $scope.follow = function() {
         var podcast = $scope.podcast;
 
@@ -98,6 +109,17 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             })
             .error( function() {
         });
+    };
+
+    $scope.like = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/like/' + podcast._id })
+            .success( function() {
+                $location.path('podcasts/' + podcast._id);
+            })
+            .error( function() {
+            });
     };
 
     $scope.star = function() {

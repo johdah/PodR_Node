@@ -125,6 +125,52 @@ exports.getUserEpisode = function(req, res) {
 };
 
 /**
+ * Dislike episode
+ */
+exports.dislikeEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err || ue === null)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.rating = -1;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
+ * Like episode
+ */
+exports.likeEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err || ue === null)
+            ue = new UserEpisode();
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.rating = 1;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
  * Restore episode
  */
 exports.restoreEpisode = function(req, res) {

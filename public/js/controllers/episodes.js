@@ -38,6 +38,28 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         });
     };
 
+    $scope.dislike = function() {
+        var episode = $scope.episode;
+
+        $http({ method: 'GET', url: 'episodes/dislike/' + episode._id })
+            .success( function() {
+                $location.path('episodes/' + episode._id);
+            })
+            .error( function() {
+            });
+    };
+
+    $scope.like = function() {
+        var episode = $scope.episode;
+
+        $http({ method: 'GET', url: 'episodes/like/' + episode._id })
+            .success( function() {
+                $location.path('episodes/' + episode._id);
+            })
+            .error( function() {
+            });
+    };
+
     $scope.restore = function() {
         var episode = $scope.episode;
 
