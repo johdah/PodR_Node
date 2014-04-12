@@ -119,14 +119,19 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 
     $scope.fetch = function() {
         var podcast = $scope.podcast;
+        $scope.updating = true;
+        console.log("true");
 
         $http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
             .success( function(data) {
                 $scope.podcast = data.podcast;
                 $scope.episodes = data.episodes;
+                $scope.updating = false;
+                console.log("false");
             })
             .error( function() {
-                console.log('Failed to update the podcast');
+                $scope.updating = false;
+                console.log("false");
             });
     };
 

@@ -18,6 +18,33 @@
 .ui-group-buttons .btn:first-child{margin-left:0;border-top-left-radius:.25em;border-bottom-left-radius:.25em;padding-right:15px}
 .ui-group-buttons .btn:last-child{border-top-right-radius:.25em;border-bottom-right-radius:.25em;padding-left:15px}
 
+.rotate-animation {
+    -webkit-animation: rotate-animation 3s infinite linear;
+    -webkit-animation-delay: 0s;
+    animation:         rotate-animation 3s infinite linear;
+    animation-delay: 0s;
+}
+
+/** Rotate image **/
+@-webkit-keyframes rotate-animation {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotate-animation {
+    0% {
+        -webkit-transform: rotate(0deg); /* Opera needs this */
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg); /* Opera needs this */
+        transform: rotate(360deg);
+    }
+}
+
 /** Other **/
 
 .navbar .nav>li>a.brand {
