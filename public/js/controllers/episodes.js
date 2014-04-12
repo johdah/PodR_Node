@@ -10,6 +10,16 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         });
     };
 
+    $scope.findStarred = function() {
+        $http({ method: 'GET', url: 'episodes/starred' })
+            .success( function(data) {
+                $scope.userEpisodes = data;
+            })
+            .error( function() {
+                //console.log("Failed to fetch the userepisode");
+        });
+    };
+
     $scope.findOne = function() {
         Episodes.get({
             episodeId: $stateParams.episodeId
@@ -45,7 +55,7 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
                 $location.path('episodes/' + episode._id);
             })
             .error( function() {
-            });
+        });
     };
 
     $scope.like = function() {
@@ -56,7 +66,7 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
                 $location.path('episodes/' + episode._id);
             })
             .error( function() {
-            });
+        });
     };
 
     $scope.restore = function() {

@@ -5,10 +5,14 @@ var episodes = require('../controllers/episodes');
 var authorization = require('./middlewares/authorization');
 
 module.exports = function(app) {
+    // Lists
     app.get('/episodes', authorization.requiresLogin, episodes.all);
+    app.get('/episodes/podcast/:podcastId', authorization.requiresLogin, episodes.allByPodcast);
+    app.get('/episodes/starred', authorization.requiresLogin, episodes.allUserStarred);
+
+    // Actions
     app.get('/episodes/:episodeId', authorization.requiresLogin, episodes.show);
     app.get('/episodes/archive/:episodeId', authorization.requiresLogin, episodes.archiveEpisode);
-    app.get('/episodes/podcast/:podcastId', authorization.requiresLogin, episodes.allByPodcast);
     app.get('/episodes/dislike/:episodeId', authorization.requiresLogin, episodes.dislikeEpisode);
     app.get('/episodes/like/:episodeId', authorization.requiresLogin, episodes.likeEpisode);
     app.get('/episodes/restore/:episodeId', authorization.requiresLogin, episodes.restoreEpisode);

@@ -97,7 +97,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
                 $location.path('podcasts/' + podcast._id);
             })
             .error( function() {
-            });
+        });
     };
 
     $scope.follow = function() {
@@ -119,7 +119,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
                 $location.path('podcasts/' + podcast._id);
             })
             .error( function() {
-            });
+        });
     };
 
     $scope.star = function() {

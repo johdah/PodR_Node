@@ -1,0 +1,20 @@
+<section data-ng-controller="EpisodesController" data-ng-init="findStarred()">
+    <ul class="media-list">
+        <li class="media" data-ng-repeat="userEpisode in userEpisodes">
+            <a class="pull-left" href="#">
+                <img class="media-object img-circle" src="{{userEpisode.episode.imageUrl}}" alt="{{userEpisode.episode.imageTitle}}" title="{{userEpisode.episode.imageTitle}}" width="120" ng-if="userEpisode.episode.imageUrl" />
+                <img class="media-object img-circle" src="data:image/png;base64," data-src="holder.js/120x120/auto/sky" width="120" ng-if="!userEpisode.episode.imageUrl" />
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="userEpisode.episode.title">{{userEpisode.episode.title}}</a>
+                    <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="!userEpisode.episode.title">Unknown title</a>
+                </h4>
+                <p ng-if="userEpisode.episode.subtitle">{{userEpisode.episode.subtitle}}</p>
+                <p ng-if="!userEpisode.episode.subtitle">There is no subtitle for this episode</p>
+                <span class="published"><em>{{ userEpisode.episode.published | date:'yyyy-MM-dd' }}</em></span>
+            </div>
+        </li>
+    </ul>
+    <h1 data-ng-hide="!userEpisodes || userEpisodes">No episodes yet.</h1>
+</section>

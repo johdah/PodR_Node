@@ -24,7 +24,7 @@ exports.episode = function(req, res, next, id) {
  * List of episodes.
  */
 exports.all = function(req, res) {
-    Episode.find().sort('-published').exec(function(err, episodes) {
+    Episode.find({}).sort('-published').exec(function(err, episodes) {
         if(err) {
             res.render('error', {
                 status: 500
@@ -45,7 +45,30 @@ exports.allByPodcast = function(req, res) {
                 status: 500
             });
         } else {
+            for (var episode in episodes) {
+                UserEpisode.find( {episode: episode, user: req.user}).exec(function(err, ue) {
+                    episode.userEpisode = ue;
+                });
+            }
+
+            console.log(episodes);
+
             res.jsonp(episodes);
+        }
+    });
+};
+
+/**
+ * List of a users starred episodes.
+ */
+exports.allUserStarred = function(req, res) {
+    UserEpisode.find({ user: req.user, starred: true }).populate('episode').sort('-published').exec(function(err, ue) {
+        if(err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(ue);
         }
     });
 };
