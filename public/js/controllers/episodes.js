@@ -10,17 +10,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         });
     };
 
-    $scope.findStarred = function() {
-        $http({ method: 'GET', url: 'episodes/starred' })
-            .success( function(data) {
-                $scope.userEpisodes = data;
-            })
-            .error( function() {
-        });
-    };
-
-    $scope.findUnarchived = function() {
-        $http({ method: 'GET', url: 'episodes/unarchived' })
+    $scope.findLiked = function() {
+        $http({ method: 'GET', url: 'episodes/liked' })
             .success( function(data) {
                 $scope.userEpisodes = data;
             })
@@ -39,7 +30,25 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
                     $scope.userEpisode = data;
                 })
                 .error( function() {
-            });
+                });
+        });
+    };
+
+    $scope.findStarred = function() {
+        $http({ method: 'GET', url: 'episodes/starred' })
+            .success( function(data) {
+                $scope.userEpisodes = data;
+            })
+            .error( function() {
+        });
+    };
+
+    $scope.findUnarchived = function() {
+        $http({ method: 'GET', url: 'episodes/unarchived' })
+            .success( function(data) {
+                $scope.userEpisodes = data;
+            })
+            .error( function() {
         });
     };
 

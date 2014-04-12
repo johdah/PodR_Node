@@ -8,6 +8,7 @@ module.exports = function(app) {
     // Lists
     app.get('/episodes', authorization.requiresLogin, episodes.all);
     app.get('/episodes/podcast/:podcastId', authorization.requiresLogin, episodes.allByPodcast);
+    app.get('/episodes/liked', authorization.requiresLogin, episodes.allUserLiked);
     app.get('/episodes/starred', authorization.requiresLogin, episodes.allUserStarred);
     app.get('/episodes/unarchived', authorization.requiresLogin, episodes.allUserUnarchived);
 

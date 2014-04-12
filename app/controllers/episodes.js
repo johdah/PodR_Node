@@ -24,7 +24,7 @@ exports.episode = function(req, res, next, id) {
  * List of episodes.
  */
 exports.all = function(req, res) {
-    Episode.find({}).sort('-published').exec(function(err, episodes) {
+    Episode.find({}).limit(25).sort('-published').exec(function(err, episodes) {
         if(err) {
             res.render('error', {
                 status: 500
@@ -54,6 +54,21 @@ exports.allByPodcast = function(req, res) {
             console.log(episodes);
 
             res.jsonp(episodes);
+        }
+    });
+};
+
+/**
+ * List of a users liked episodes.
+ */
+exports.allUserLiked = function(req, res) {
+    UserEpisode.find({ user: req.user, rating: 1 }).populate('episode').sort('-published').exec(function(err, ue) {
+        if(err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(ue);
         }
     });
 };
