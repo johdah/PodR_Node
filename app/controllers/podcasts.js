@@ -48,7 +48,6 @@ exports.allFollowed = function(req, res) {
 				status: 500
 			});
 		} else {
-            console.log(up)
 			res.jsonp(up);
 		}
 	});
@@ -238,8 +237,6 @@ exports.fetch = function(req, response) {
                             episode.save(function (err) {
                                 if (err)
                                     console.log(episode.title + ' ' + err);
-                                // Saved
-                                console.log('Added ' + episode.title);
                             });
                         }
                     });

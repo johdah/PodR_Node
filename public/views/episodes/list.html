@@ -11,7 +11,7 @@
         <li class="media" data-ng-repeat="episode in episodes">
             <a class="pull-left" href="#">
                 <img class="media-object img-circle" src="{{episode.imageUrl}}" alt="{{episode.imageTitle}}" title="{{episode.imageTitle}}" width="120" ng-if="episode.imageUrl" />
-                <img class="media-object img-circle" src="data:image/png;base64," data-src="holder.js/120x120/auto/sky" width="120" ng-if="!episode.imageUrl" />
+                <img class="media-object img-circle" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!episode.imageUrl" holder-fix />
             </a>
             <div class="media-body">
                 <h4 class="media-heading">

@@ -11,7 +11,7 @@
 		<li class="media" data-ng-repeat="podcast in podcasts">
 			<a class="pull-left" href="#">
 				<img class="media-object img-circle" src="{{podcast.imageUrl}}" alt="{{podcast.imageTitle}}" title="{{podcast.imageTitle}}" width="120" ng-if="podcast.imageUrl" />
-				<img class="media-object img-circle" src="data:image/png;base64," data-src="holder.js/120x120/auto/sky" width="120" ng-if="!podcast.imageUrl" />
+				<img class="media-object img-circle" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!podcast.imageUrl" holder-fix />
 			</a>
 			<div class="media-body">
 				<h4 class="media-heading">
