@@ -8,8 +8,11 @@ angular.module('podr.system').controller('HeaderController', ['$scope', 'Global'
 			'title': 'Podcasts',
 			'link': 'podcasts'
 		}, {
+			'title': 'Episodes',
+			'link': 'episodes'
+		}, {
 			'title': 'Add New Podcast',
-			'link': 'podcasts/add',
+			'link': 'podcasts/add'
 		}
 	];
 

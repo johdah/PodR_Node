@@ -1,4 +1,11 @@
 <section data-ng-controller="EpisodesController" data-ng-init="findLiked()">
+    <ul class="nav nav-tabs">
+        <li><a href="#!/episodes">Latest</a></li>
+        <li class="active"><a href="#!/episodes/liked">Liked</a></li>
+        <li><a href="#!/episodes/starred">Starred</a></li>
+        <li><a href="#!/episodes/unarchived">Unarchived</a></li>
+    </ul>
+
     <h1>Liked episodes</h1>
     <ul class="media-list">
         <li class="media" data-ng-repeat="userEpisode in userEpisodes">
