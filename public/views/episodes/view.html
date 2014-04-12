@@ -7,10 +7,10 @@
             </a>
 
             <div>
-                <button type="button" data-ng-click="restore();" ng-if="!userEpisode.archived" class="btn btn-lg btn-labeled btn-success">
+                <button type="button" data-ng-click="restore();" ng-if="userEpisode.archived" class="btn btn-lg btn-labeled btn-success">
                     <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Add
                 </button>
-                <button type="button" data-ng-click="archive();" ng-if="userEpisode.archived" class="btn btn-lg btn-labeled btn-danger">
+                <button type="button" data-ng-click="archive();" ng-if="!userEpisode.archived" class="btn btn-lg btn-labeled btn-danger">
                     <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Archive
                 </button>
 
@@ -20,20 +20,22 @@
                 <button type="button" data-ng-click="unstar();" ng-if="userEpisode.starred" class="btn btn-lg btn-labeled btn-danger">
                     <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Unstar
                 </button>
+            </div>
+
+            <div>
+                <div class="ui-group-buttons">
+                    <a href="javascript:void(0)" ng-if="userEpisode.rating==1" data-ng-click="like();" class="btn btn-success btn-lg" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a href="javascript:void(0)" ng-if="userEpisode.rating!=1" data-ng-click="like();" class="btn btn-success btn-lg " role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <div class="or or-lg"></div>
+                    <a href="javascript:void(0)" ng-if="userEpisode.rating==-1" data-ng-click="dislike();" class="btn btn-danger btn-lg " role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                    <a href="javascript:void(0)" ng-if="userEpisode.rating!=-1" data-ng-click="dislike();" class="btn btn-danger btn-lg " role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                </div>
 
                 <a href="{{ episode.enclosureUrl }}" title="{{ episode.title }}">
                     <button type="button" class="btn btn-lg btn-labeled btn-success">
                         <span class="btn-label"><i class="glyphicon glyphicon-play"></i></span>Play
                     </button>
                 </a>
-            </div>
-
-            <div class="ui-group-buttons">
-                <a href="javascript:void(0)" ng-if="userEpisode.rating==1" data-ng-click="like();" class="btn btn-success btn-lg" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                <a href="javascript:void(0)" ng-if="userEpisode.rating!=1" data-ng-click="like();" class="btn btn-success btn-lg " role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                <div class="or or-lg"></div>
-                <a href="javascript:void(0)" ng-if="userEpisode.rating==-1" data-ng-click="dislike();" class="btn btn-danger btn-lg " role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-down"></span></a>
-                <a href="javascript:void(0)" ng-if="userEpisode.rating!=-1" data-ng-click="dislike();" class="btn btn-danger btn-lg " role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
             </div>
 
             <h3>Info</h3>

@@ -120,8 +120,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/dislike/' + podcast._id })
-            .success( function() {
-                $location.path('podcasts/' + podcast._id);
+            .success( function(data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });
@@ -131,8 +131,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/follow/' + podcast._id })
-            .success( function() {
-                $location.path('podcasts/' + podcast._id);
+            .success( function(data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });
@@ -142,8 +142,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/like/' + podcast._id })
-            .success( function() {
-                $location.path('podcasts/' + podcast._id);
+            .success( function(data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });
@@ -153,8 +153,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/star/' + podcast._id })
-            .success(function () {
-                $location.path('podcasts/' + podcast._id);
+            .success(function (data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });
@@ -164,8 +164,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/unfollow/' + podcast._id })
-            .success( function() {
-                $location.path('podcasts/' + podcast._id);
+            .success( function(data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });
@@ -175,8 +175,8 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
 
         $http({ method: 'GET', url: 'podcasts/unstar/' + podcast._id })
-            .success( function() {
-                $location.path('podcasts/' + podcast._id);
+            .success( function(data) {
+                $scope.userPodcast = data;
             })
             .error( function() {
         });

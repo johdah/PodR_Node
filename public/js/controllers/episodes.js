@@ -56,8 +56,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/archive/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
@@ -67,8 +67,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/dislike/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
@@ -78,8 +78,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/like/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
@@ -89,8 +89,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/restore/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
@@ -100,8 +100,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/star/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
@@ -111,8 +111,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         var episode = $scope.episode;
 
         $http({ method: 'GET', url: 'episodes/unstar/' + episode._id })
-            .success( function() {
-                $location.path('episodes/' + episode._id);
+            .success( function(data) {
+                $scope.userEpisode = data;
             })
             .error( function() {
         });
