@@ -52,6 +52,8 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         });
     };
 
+    // Actions
+
     $scope.archive = function() {
         var episode = $scope.episode;
 

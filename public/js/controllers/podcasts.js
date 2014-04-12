@@ -47,18 +47,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		});
 	};
 
-	$scope.fetch = function() {
-		var podcast = $scope.podcast;
-
-		$http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
-			.success( function() {
-				$location.path('podcasts/' + podcast._id);
-			})
-			.error( function() {
-				console.log('Failed to update the podcast');
-			});
-	};
-
 	$scope.find = function() {
 		Podcasts.query(function(podcasts) {
 			$scope.podcasts = podcasts;
@@ -83,20 +71,11 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         });
 	};
 
-	$scope.findStarred = function() {
-        $http({ method: 'GET', url: 'podcasts/starred' })
-            .success( function(data) {
-                $scope.userPodcasts = data;
-            })
-            .error( function() {
-        });
-	};
-
-	$scope.findOne = function() {
-		Podcasts.get({
-			podcastId: $stateParams.podcastId
-		}, function(podcast) {
-			$scope.podcast = podcast;
+    $scope.findOne = function() {
+        Podcasts.get({
+            podcastId: $stateParams.podcastId
+        }, function(podcast) {
+            $scope.podcast = podcast;
 
             $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
                 .success( function(data) {
@@ -112,9 +91,20 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
                 })
                 .error( function() {
                     //console.log("Failed to fetch the userpodcast");
-            });
-		});
+                });
+        });
+    };
+
+	$scope.findStarred = function() {
+        $http({ method: 'GET', url: 'podcasts/starred' })
+            .success( function(data) {
+                $scope.userPodcasts = data;
+            })
+            .error( function() {
+        });
 	};
+
+    // Actions
 
     $scope.dislike = function() {
         var podcast = $scope.podcast;
@@ -125,6 +115,19 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             })
             .error( function() {
         });
+    };
+
+    $scope.fetch = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
+            .success( function(data) {
+                $scope.podcast = data.podcast;
+                $scope.episodes = data.episodes;
+            })
+            .error( function() {
+                console.log('Failed to update the podcast');
+            });
     };
 
     $scope.follow = function() {
