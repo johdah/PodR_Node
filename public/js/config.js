@@ -31,6 +31,10 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/episodes/starred',
 			templateUrl: 'views/episodes/starred.html'
 		})
+		.state('all unarchived episodes', {
+			url: '/episodes/unarchived',
+			templateUrl: 'views/episodes/unarchived.html'
+		})
 		.state('episode by id', {
 			url: '/episodes/:episodeId',
 			templateUrl: 'views/episodes/view.html'

@@ -9,6 +9,7 @@ module.exports = function(app) {
     app.get('/episodes', authorization.requiresLogin, episodes.all);
     app.get('/episodes/podcast/:podcastId', authorization.requiresLogin, episodes.allByPodcast);
     app.get('/episodes/starred', authorization.requiresLogin, episodes.allUserStarred);
+    app.get('/episodes/unarchived', authorization.requiresLogin, episodes.allUserUnarchived);
 
     // Actions
     app.get('/episodes/:episodeId', authorization.requiresLogin, episodes.show);

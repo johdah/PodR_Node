@@ -16,7 +16,15 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
                 $scope.userEpisodes = data;
             })
             .error( function() {
-                //console.log("Failed to fetch the userepisode");
+        });
+    };
+
+    $scope.findUnarchived = function() {
+        $http({ method: 'GET', url: 'episodes/unarchived' })
+            .success( function(data) {
+                $scope.userEpisodes = data;
+            })
+            .error( function() {
         });
     };
 
@@ -31,7 +39,6 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
                     $scope.userEpisode = data;
                 })
                 .error( function() {
-                    //console.log("Failed to fetch the userepisode");
             });
         });
     };

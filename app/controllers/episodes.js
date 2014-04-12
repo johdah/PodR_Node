@@ -74,6 +74,21 @@ exports.allUserStarred = function(req, res) {
 };
 
 /**
+ * List of a users unarchived episodes.
+ */
+exports.allUserUnarchived = function(req, res) {
+    UserEpisode.find({ user: req.user, archived: false }).populate('episode').sort('-published').exec(function(err, ue) {
+        if(err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(ue);
+        }
+    });
+};
+
+/**
  * Archive episode
  */
 exports.archiveEpisode = function(req, res) {
