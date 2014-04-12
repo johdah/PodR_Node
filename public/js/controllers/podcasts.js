@@ -65,6 +65,33 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		});
 	};
 
+	$scope.findFollowed = function() {
+        $http({ method: 'GET', url: 'podcasts/followed' })
+            .success( function(data) {
+                $scope.userPodcasts = data;
+            })
+            .error( function() {
+        });
+	};
+
+	$scope.findLiked = function() {
+        $http({ method: 'GET', url: 'podcasts/liked' })
+            .success( function(data) {
+                $scope.userPodcasts = data;
+            })
+            .error( function() {
+        });
+	};
+
+	$scope.findStarred = function() {
+        $http({ method: 'GET', url: 'podcasts/starred' })
+            .success( function(data) {
+                $scope.userPodcasts = data;
+            })
+            .error( function() {
+        });
+	};
+
 	$scope.findOne = function() {
 		Podcasts.get({
 			podcastId: $stateParams.podcastId

@@ -1,4 +1,12 @@
 <section data-ng-controller="PodcastsController" data-ng-init="find()">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#!/podcasts">All</a></li>
+        <li><a href="#!/podcasts/followed">Followed</a></li>
+        <li><a href="#!/podcasts/liked">Liked</a></li>
+        <li><a href="#!/podcasts/starred">Starred</a></li>
+    </ul>
+
+    <h1>All podcasts</h1>
 	<ul class="media-list">
 		<li class="media" data-ng-repeat="podcast in podcasts">
 			<a class="pull-left" href="#">

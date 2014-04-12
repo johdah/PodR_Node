@@ -39,6 +39,52 @@ exports.all = function(req, res) {
 };
 
 /**
+ * List of followed podcasts
+ */
+exports.allFollowed = function(req, res) {
+	UserPodcast.find({ user: req.user, following: true }).populate('podcast').sort('-title').exec(function(err, up) {
+		if(err) {
+			res.render('error', {
+				status: 500
+			});
+		} else {
+            console.log(up)
+			res.jsonp(up);
+		}
+	});
+};
+
+/**
+ * List of liked podcasts
+ */
+exports.allLiked = function(req, res) {
+    UserPodcast.find({ user: req.user, rating: 1 }).populate('podcast').sort('-title').exec(function(err, up) {
+        if(err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(up);
+        }
+    });
+};
+
+/**
+ * List of starred podcasts
+ */
+exports.allStarred = function(req, res) {
+    UserPodcast.find({ user: req.user, starred: true }).populate('podcast').sort('-title').exec(function(err, up) {
+        if(err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(up);
+        }
+    });
+};
+
+/**
  * Add a podcast
  */
 exports.create = function(req, res) {

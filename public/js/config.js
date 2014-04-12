@@ -7,9 +7,22 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 
 	// states for my app
 	$stateProvider
+        // Podcasts
 		.state('all podcasts', {
 			url: '/podcasts',
 			templateUrl: 'views/podcasts/list.html'
+		})
+		.state('all followed podcasts', {
+			url: '/podcasts/followed',
+			templateUrl: 'views/podcasts/followed.html'
+		})
+		.state('all liked podcasts', {
+			url: '/podcasts/liked',
+			templateUrl: 'views/podcasts/liked.html'
+		})
+		.state('all starred podcasts', {
+			url: '/podcasts/starred',
+			templateUrl: 'views/podcasts/starred.html'
 		})
 		.state('create podcast', {
 			url: '/podcasts/add',
@@ -23,6 +36,7 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/podcasts/:podcastId',
 			templateUrl: 'views/podcasts/view.html'
 		})
+        // Episodes
 		.state('all episodes', {
 			url: '/episodes',
 			templateUrl: 'views/episodes/list.html'
@@ -43,6 +57,7 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/episodes/:episodeId',
 			templateUrl: 'views/episodes/view.html'
 		})
+        // Home
 		.state('home', {
 			url: '/',
 			templateUrl: 'views/index.html'

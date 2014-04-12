@@ -13,7 +13,13 @@ var hasAuthorization = function(req, res, next) {
 
 // Defining routes
 module.exports = function(app) {
+    // Lists
 	app.get('/podcasts', authorization.requiresLogin, podcasts.all);
+	app.get('/podcasts/followed', authorization.requiresLogin, podcasts.allFollowed);
+	app.get('/podcasts/liked', authorization.requiresLogin, podcasts.allLiked);
+	app.get('/podcasts/starred', authorization.requiresLogin, podcasts.allStarred);
+
+    // Actions
 	app.post('/podcasts', authorization.requiresLogin, podcasts.create);
 	app.get('/podcasts/:podcastId', authorization.requiresLogin, podcasts.show);
 	app.put('/podcasts/:podcastId', authorization.requiresLogin, hasAuthorization, podcasts.update);

@@ -51,8 +51,6 @@ exports.allByPodcast = function(req, res) {
                 });
             }
 
-            console.log(episodes);
-
             res.jsonp(episodes);
         }
     });
