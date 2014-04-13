@@ -39,18 +39,22 @@ exports.all = function(req, res) {
  * List of episodes.
  */
 exports.allByPodcast = function(req, res) {
-    Episode.find({podcast: req.podcast}).sort('-published').exec(function(err, episodes) {
+    //Episode.find({podcast: req.podcast}).sort('-published').exec(function(err, episodes) {
+    Episode.find({podcast: req.podcast})
+            //.populate('userEpisodes')
+            .populate({
+                path: 'userEpisodes'
+                //match: { episode: req.episode }
+                //match: { episode: req.episode, user: req.user }
+            })
+            .sort('-published')
+            .exec(function(err, episodes) {
         if(err) {
             res.render('error', {
                 status: 500
             });
         } else {
-            for (var episode in episodes) {
-                UserEpisode.find( {episode: episode, user: req.user}).exec(function(err, ue) {
-                    episode.userEpisode = ue;
-                });
-            }
-
+            console.log(episodes[1].userEpisodes);
             res.jsonp(episodes);
         }
     });
@@ -98,29 +102,6 @@ exports.allUserUnarchived = function(req, res) {
         } else {
             res.jsonp(ue);
         }
-    });
-};
-
-/**
- * Archive episode
- */
-exports.archiveEpisode = function(req, res) {
-    UserEpisode.findOne({
-        episode: req.episode,
-        user: req.user
-    }).exec(function(err, ue) {
-        if(err || ue === null)
-            ue = new UserEpisode();
-
-        ue.episode = req.episode;
-        ue.user = req.user;
-        ue.archived = true;
-        ue.save(function(err) {
-            if(err)
-                res.jsonp(err);
-            else
-                res.jsonp(ue);
-        });
     });
 };
 
@@ -176,6 +157,61 @@ exports.getUserEpisode = function(req, res) {
 };
 
 /**
+ * Show an episode
+ */
+exports.show = function(req, res) {
+    res.jsonp(req.episode);
+};
+
+/**
+ * Update an episode
+ */
+exports.update = function(req, res) {
+    var episode = req.episode;
+
+    episode = _.extend(episode, req.body);
+
+    episode.save(function(err) {
+        if(err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                episode: episode
+            });
+        } else {
+            res.jsonp(episode);
+        }
+    });
+};
+
+// Actions
+
+/**
+ * Archive episode
+ */
+exports.archiveEpisode = function(req, res) {
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err || ue === null) {
+            ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
+        console.log(req.episode.userEpisodes);
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.archived = true;
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
  * Dislike episode
  */
 exports.dislikeEpisode = function(req, res) {
@@ -183,8 +219,10 @@ exports.dislikeEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err || ue === null)
+        if(err || ue === null) {
             ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
 
         ue.episode = req.episode;
         ue.user = req.user;
@@ -206,8 +244,10 @@ exports.likeEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err || ue === null)
+        if(err || ue === null) {
             ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
 
         ue.episode = req.episode;
         ue.user = req.user;
@@ -229,8 +269,10 @@ exports.restoreEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err || ue === null)
+        if(err || ue === null) {
             ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
 
         ue.episode = req.episode;
         ue.user = req.user;
@@ -245,13 +287,6 @@ exports.restoreEpisode = function(req, res) {
 };
 
 /**
- * Show an episode
- */
-exports.show = function(req, res) {
-    res.jsonp(req.episode);
-};
-
-/**
  * Star episode
  */
 exports.starEpisode = function(req, res) {
@@ -259,8 +294,10 @@ exports.starEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err || ue === null)
+        if(err || ue === null) {
             ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
 
         ue.episode = req.episode;
         ue.user = req.user;
@@ -282,8 +319,10 @@ exports.unstarEpisode = function(req, res) {
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
-        if(err || ue === null)
+        if(err || ue === null) {
             ue = new UserEpisode();
+            req.episode.userEpisodes.push(ue);
+        }
 
         ue.episode = req.episode;
         ue.user = req.user;
@@ -294,25 +333,5 @@ exports.unstarEpisode = function(req, res) {
             else
                 res.jsonp(ue);
         });
-    });
-};
-
-/**
- * Update an episode
- */
-exports.update = function(req, res) {
-    var episode = req.episode;
-
-    episode = _.extend(episode, req.body);
-
-    episode.save(function(err) {
-        if(err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                episode: episode
-            });
-        } else {
-            res.jsonp(episode);
-        }
     });
 };

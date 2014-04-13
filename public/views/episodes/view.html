@@ -7,10 +7,13 @@
             </a>
 
             <div>
-                <button type="button" data-ng-click="restore();" ng-if="userEpisode.archived" class="btn btn-lg btn-labeled btn-success">
+                <button type="button" data-ng-click="restore();" ng-if="!userEpisode.updated" class="btn btn-lg btn-labeled btn-success">
                     <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Add
                 </button>
-                <button type="button" data-ng-click="archive();" ng-if="!userEpisode.archived" class="btn btn-lg btn-labeled btn-danger">
+                <button type="button" data-ng-click="restore();" ng-if="userEpisode.updated && userEpisode.archived" class="btn btn-lg btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Restore
+                </button>
+                <button type="button" data-ng-click="archive();" ng-if="userEpisode.updated && !userEpisode.archived" class="btn btn-lg btn-labeled btn-danger">
                     <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Archive
                 </button>
 
@@ -52,7 +55,7 @@
         <div class="col-md-8">
             <ol class="breadcrumb">
                 <li><a href="/#!/">Home</a></li>
-                <li><a href="/#!/episodes">{{ episode.podcast.title }}</a></li>
+                <li><a href="/#!/podcasts/{{ episode.podcast._id }}">{{ episode.podcast.title }}</a></li>
                 <li class="active">Episode</li>
             </ol>
 
