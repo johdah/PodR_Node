@@ -96,7 +96,8 @@
                     <tbody>
                         <tr class="episode" ng-repeat="episode in episodes">
                             <td class="title">
-                                <a href="/#!/episodes/{{ episode._id }}">{{ episode.title }}</a>
+                                <a href="/#!/episodes/{{ episode._id }}" ng-if="!episode.userEpisodes[0].archived">{{ episode.title }}</a>
+                                <a href="/#!/episodes/{{ episode._id }}" ng-if="episode.userEpisodes[0].archived" class="text-muted">{{ episode.title }}</a>
                                 <span class="badge" ng-if="podcast.updated == episode.created">New</span>
                                 <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
                                 <span class="badge alert-warning" ng-if="episode.userEpisodes[0] && episode.userEpisodes[0].starred">Starred</span>
