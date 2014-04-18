@@ -80,6 +80,9 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
                 .success( function(data) {
                     $scope.episodes = data;
+                    for (var i in $scope.episodes) {
+                        console.log($scope.episodes[i].userEpisodes);
+                    }
                 })
                 .error( function() {
                     console.log('Failed to update the podcast');

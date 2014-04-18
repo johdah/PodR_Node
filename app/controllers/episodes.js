@@ -43,18 +43,19 @@ exports.allByPodcast = function(req, res) {
     Episode.find({podcast: req.podcast})
             //.populate('userEpisodes')
             .populate({
-                path: 'userEpisodes'
-                //match: { episode: req.episode }
-                //match: { episode: req.episode, user: req.user }
+                path: 'userEpisodes',
+                match: { user: req.user }
+                //match: { episode: _id, user: req.user }
             })
             .sort('-published')
-            .exec(function(err, episodes) {
+            .exec(function(err, episodes)
+    {
         if(err) {
             res.render('error', {
                 status: 500
             });
         } else {
-            console.log(episodes[1].userEpisodes);
+            //console.log(episodes[0]);
             res.jsonp(episodes);
         }
     });
@@ -189,19 +190,31 @@ exports.update = function(req, res) {
  * Archive episode
  */
 exports.archiveEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
-        console.log(req.episode.userEpisodes);
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.archived = true;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function (err) {
+                if (err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);
@@ -215,18 +228,31 @@ exports.archiveEpisode = function(req, res) {
  * Dislike episode
  */
 exports.dislikeEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.rating = -1;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);
@@ -240,18 +266,31 @@ exports.dislikeEpisode = function(req, res) {
  * Like episode
  */
 exports.likeEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.rating = 1;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);
@@ -265,18 +304,31 @@ exports.likeEpisode = function(req, res) {
  * Restore episode
  */
 exports.restoreEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.archived = false;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);
@@ -290,18 +342,31 @@ exports.restoreEpisode = function(req, res) {
  * Star episode
  */
 exports.starEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.starred = true;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);
@@ -315,18 +380,31 @@ exports.starEpisode = function(req, res) {
  * Unstar episode
  */
 exports.unstarEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
     UserEpisode.findOne({
         episode: req.episode,
         user: req.user
     }).exec(function(err, ue) {
         if(err || ue === null) {
             ue = new UserEpisode();
-            req.episode.userEpisodes.push(ue);
+            isNew = true;
         }
 
         ue.episode = req.episode;
         ue.user = req.user;
         ue.starred = false;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
         ue.save(function(err) {
             if(err)
                 res.jsonp(err);

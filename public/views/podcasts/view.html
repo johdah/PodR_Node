@@ -98,6 +98,8 @@
                             <td class="title">
                                 <a href="/#!/episodes/{{ episode._id }}">{{ episode.title }}</a>
                                 <span class="badge" ng-if="podcast.updated == episode.created">New</span>
+                                <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
+                                <span class="badge alert-warning" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].starred">Starred</span>
                             </td>
                             <td class="publishedDate">{{ episode.published }}</td>
                         </tr>
