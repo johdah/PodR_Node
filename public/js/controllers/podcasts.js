@@ -108,6 +108,14 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 	};
 
     // Actions
+    $scope.archiveEpisode = function(index, episodeId) {
+        $http({ method: 'GET', url: 'episodes/archive/' + episodeId })
+            .success( function(data) {
+                $scope.episodes[index].userEpisodes[0] = data;
+            })
+            .error( function() {
+        });
+    };
 
     $scope.dislike = function() {
         var podcast = $scope.podcast;
@@ -158,6 +166,15 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             })
             .error( function() {
         });
+    };
+
+    $scope.restoreEpisode = function(index, episodeId) {
+        $http({ method: 'GET', url: 'episodes/restore/' + episodeId })
+            .success( function(data) {
+                $scope.episodes[index].userEpisodes[0] = data;
+            })
+            .error( function() {
+            });
     };
 
     $scope.star = function() {

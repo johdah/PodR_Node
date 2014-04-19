@@ -1,3 +1,19 @@
+/** List **/
+
+/** Details **/
+.quick-actions {
+    width: 85px;
+}
+.quick-actions button {
+    float: left;
+    margin-left: 5px;
+}
+.quick-actions button:first-child {
+    margin-left: 0px;
+}
+
+/** Common **/
+
 h1 {
 	text-align: center;
 }

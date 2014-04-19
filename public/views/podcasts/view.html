@@ -90,11 +90,20 @@
 				<!-- Table -->
 				<table class="table" id="episodes">
 				    <thead>
+                        <th></th>
                         <th>Title</th>
                         <th>Published</th>
 				    </thead>
                     <tbody>
                         <tr class="episode" ng-repeat="episode in episodes">
+                            <td class="quick-actions">
+                                <button type="button" class="btn btn-success btn-circle" data-ng-click="restoreEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || episode.userEpisodes[0].archived">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-circle" data-ng-click="archiveEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || !episode.userEpisodes[0].archived">
+                                    <i class="glyphicon glyphicon-book"></i>
+                                </button>
+                            </td>
                             <td class="title">
                                 <a href="/#!/episodes/{{ episode._id }}" ng-if="!episode.userEpisodes[0].archived">{{ episode.title }}</a>
                                 <a href="/#!/episodes/{{ episode._id }}" ng-if="episode.userEpisodes[0].archived" class="text-muted">{{ episode.title }}</a>
