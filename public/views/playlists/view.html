@@ -1,0 +1,28 @@
+<section data-ng-controller="PlaylistsController" data-ng-init="findOne()">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Info</h3>
+            <span>Created: {{playlist.created | date:'yyyy-MM-dd'}}</span>
+            <h4>Tools</h4>
+            <div class="tools">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ol class="breadcrumb">
+                <li><a href="/#!/">Home</a></li>
+                <li><a href="/#!/playlists/">Playlists</a></li>
+                <li class="active">{{playlist.title}}</li>
+            </ol>
+
+            <div class="page-header">
+                <h1>{{playlist.title}}</h1>
+            </div>
+            <div class="panel panel-default" ng-if="playlist.description">
+                <div class="panel-body">
+                    {{playlist.description}}
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </div>
+</section>

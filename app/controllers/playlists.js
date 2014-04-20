@@ -23,12 +23,16 @@ exports.playlist = function(req, res, next, id) {
  * List of playlists
  */
 exports.all = function(req, res) {
+    console.log("test");
     Playlist.find().sort('title').exec(function(err, playlists) {
+        console.log("test");
         if(err) {
+            console.log(err);
             res.render('error', {
                 status: 500
             });
         } else {
+            console.log(playlists);
             res.jsonp(playlists);
         }
     });
@@ -95,21 +99,4 @@ exports.update = function(req, res) {
             res.jsonp(playlist);
         }
     });
-};
-
-// Defining routes
-module.exports = function(app) {
-    // Lists
-    app.get('/playlists', authorization.requiresLogin, playlists.all);
-
-    // View
-    app.get('/playlists/:playlistId', authorization.requiresLogin, playlists.show);
-
-    // Actions
-    app.post('/playlists', authorization.requiresLogin, playlists.create);
-    app.del('/playlists/:playlistId', authorization.requiresLogin, hasAuthorization, playlists.destroy);
-    app.put('/playlists/:playlistId', authorization.requiresLogin, hasAuthorization, playlists.update);
-
-    // Finish with setting up the playlistId param
-    app.param('playlistId', playlists.playlist);
 };

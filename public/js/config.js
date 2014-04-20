@@ -57,6 +57,23 @@ angular.module('podr').config(['$stateProvider', '$urlRouterProvider', function(
 			url: '/episodes/:episodeId',
 			templateUrl: 'views/episodes/view.html'
 		})
+        // Playlists
+        .state('create playlist', {
+            url: '/playlists/add',
+            templateUrl: 'views/playlists/create.html'
+        })
+        .state('edit playlist', {
+            url: '/playlists/:playlistId/edit',
+            templateUrl: '/views/playlists/edit.html'
+        })
+        .state('all playlists', {
+            url: '/playlists',
+            templateUrl: 'views/playlists/list.html'
+        })
+        .state('playlist by id', {
+            url: '/playlists/:playlistId',
+            templateUrl: 'views/playlists/view.html'
+        })
         // Home
 		.state('home', {
 			url: '/',

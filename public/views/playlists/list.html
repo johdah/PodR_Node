@@ -1,0 +1,18 @@
+<section data-ng-controller="PlaylistsController" data-ng-init="find()">
+    <h1>Playlists</h1>
+    <ul class="media-list">
+        <li class="media" data-ng-repeat="playlist in playlists">
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a data-ng-href="#!/playlists/{{playlist._id}}" ng-if="playlist.title">{{playlist.title}}</a>
+                    <a data-ng-href="#!/playlists/{{playlist._id}}" ng-if="!playlist.title">Unknown title</a>
+                </h4>
+                <p ng-if="playlist.description">{{playlist.description}}</p>
+                <p ng-if="!playlist.description">There is no description for this playlist</p>
+                <span class="published"><em>{{ playlist.created | date:'yyyy-MM-dd' }}</em></span>
+            </div>
+        </li>
+    </ul>
+    <div ng-if="!playlists || !playlists.length"><h2>No playlists yet.</h2> <h3>Why dont't you <a href="/#!/playlists/add">Add one</a>?</h3></div>
+    <div ng-if="playlists && playlists.length"><h3>Add a new <a href="/#!/playlists/add">playlist</a>?</h3></div>
+</section>

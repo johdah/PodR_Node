@@ -10,6 +10,9 @@ angular.module('podr.system').controller('HeaderController', ['$scope', 'Global'
 		}, {
 			'title': 'Episodes',
 			'link': 'episodes'
+		}, {
+			'title': 'Playlists',
+			'link': 'playlists'
 		}
 	];
 

@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$stateParams', '$location', '$http', 'Global', 'Episodes', function($scope, $stateParams, $location, $http, Global, Episodes) {
-
     $scope.global = Global;
 
     $scope.find = function() {

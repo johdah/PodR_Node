@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', '$http', 'Global', 'Podcasts', function($scope, $stateParams, $location, $http, Global, Podcasts) {
-	
 	$scope.global = Global;
 
 	$scope.create = function() {
