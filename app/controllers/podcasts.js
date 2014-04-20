@@ -127,81 +127,64 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Get an UserPodcast
- */
-exports.getUserPodcast = function(req, res) {
-    UserPodcast.findOne({
-        podcast: req.podcast,
-        user: req.user
-    }).exec(function(err, up) {
-        if(err)
-            res.jsonp(err);
-        else
-            res.jsonp(up);
-    });
-};
-
-/* Actions */
-
-/**
  * Fetch updates from the podcast feed
  */
 exports.fetch = function(req, response) {
-	var podcast = req.podcast;
-	var episodes = [];
+    var podcast = req.podcast;
+    var episodes = [];
 
-	http.get(podcast.url, function(res) {
-		res.pipe(new FeedParser({}))
-			.on('error', function(error) {
-				response.jsonp({
-					success: false,
-					error: error
-				});
-			})
-			.on('meta', function(meta) {
-				// TODO: Error handling
-				if(meta['itunes:author'] !== undefined)
-					podcast.author = meta['itunes:author']['#'];
+    http.get(podcast.url, function(res) {
+        res.pipe(new FeedParser({}))
+            .on('error', function(error) {
+                response.jsonp({
+                    success: false,
+                    error: error
+                });
+            })
+            .on('meta', function(meta) {
+                // TODO: Error handling
+                if(meta['itunes:author'] !== undefined)
+                    podcast.author = meta['itunes:author']['#'];
 
-				if(meta['itunes:block'] !== undefined)
-					podcast.block = (meta['itunes:block']['#']).toLowerCase() === 'yes';
-				if(meta['itunes:complete'] !== undefined)
-					podcast.complete = (meta['itunes:complete']['#']).toLowerCase() === 'yes';
-				podcast.copyright = meta.copyright;
+                if(meta['itunes:block'] !== undefined)
+                    podcast.block = (meta['itunes:block']['#']).toLowerCase() === 'yes';
+                if(meta['itunes:complete'] !== undefined)
+                    podcast.complete = (meta['itunes:complete']['#']).toLowerCase() === 'yes';
+                podcast.copyright = meta.copyright;
 
-				// TODO: Probably not a good if-case
-				if(meta['itunes:summary'] !== undefined)
-					podcast.description = meta['itunes:summary']['#'];
-				else
-					podcast.description = meta.description;
+                // TODO: Probably not a good if-case
+                if(meta['itunes:summary'] !== undefined)
+                    podcast.description = meta['itunes:summary']['#'];
+                else
+                    podcast.description = meta.description;
 
-				if(meta['itunes:explicit'] !== undefined)
-					podcast.explicit = (meta['itunes:explicit']['#']).toLowerCase() === 'yes';
+                if(meta['itunes:explicit'] !== undefined)
+                    podcast.explicit = (meta['itunes:explicit']['#']).toLowerCase() === 'yes';
 
-				podcast.imageTitle = meta.image.title;
-				podcast.imageUrl = meta.image.url;
-				podcast.language = meta.language;
-				podcast.link = meta.link;
+                podcast.imageTitle = meta.image.title;
+                podcast.imageUrl = meta.image.url;
+                podcast.language = meta.language;
+                podcast.link = meta.link;
 
-				if(meta['itunes:owner'] !== undefined) {
-					if(meta['itunes:owner']['itunes:email'] !== undefined)
-						podcast.ownerEmail = meta['itunes:owner']['itunes:email']['#'];
-					if(meta['itunes:owner']['itunes:name'] !== undefined)
-						podcast.ownerName = meta['itunes:owner']['itunes:name']['#'];
-				}
+                if(meta['itunes:owner'] !== undefined) {
+                    if(meta['itunes:owner']['itunes:email'] !== undefined)
+                        podcast.ownerEmail = meta['itunes:owner']['itunes:email']['#'];
+                    if(meta['itunes:owner']['itunes:name'] !== undefined)
+                        podcast.ownerName = meta['itunes:owner']['itunes:name']['#'];
+                }
 
-				if(meta['itunes:subtitle'] !== undefined)
-					podcast.subtitle = meta['itunes:subtitle']['#'];
+                if(meta['itunes:subtitle'] !== undefined)
+                    podcast.subtitle = meta['itunes:subtitle']['#'];
 
-				if(meta['itunes:new-feed-url'] !== undefined)
-					podcast.url = meta['itunes:new-feed-url']['#'];
+                if(meta['itunes:new-feed-url'] !== undefined)
+                    podcast.url = meta['itunes:new-feed-url']['#'];
 
-				podcast.title = meta.title;
-				podcast.updated = Date.now();
-			})
-			.on('readable', function() {
-				var stream = this, item;
-				while (item = stream.read()) {
+                podcast.title = meta.title;
+                podcast.updated = Date.now();
+            })
+            .on('readable', function() {
+                var stream = this, item;
+                while (item = stream.read()) {
                     // Each 'readable' event will contain one episode
                     var episode = new Episode();
                     episode.created = podcast.updated;
@@ -251,9 +234,9 @@ exports.fetch = function(req, response) {
 
                     podcast.episodes.push(episode);
                     episodes.push(episode);
-				}
-			})
-			.on('end', function() {
+                }
+            })
+            .on('end', function() {
                 episodes.forEach(function(episode) {
                     Episode.count({guid: episode.guid}, function (err, count) {
                         if(count === 0) {
@@ -265,44 +248,104 @@ exports.fetch = function(req, response) {
                     });
                 });
 
-				podcast.save(function(err) {
-					if(err) {
-						response.jsonp({
-							success: false,
-							error: err
-						});
-					} else {
-						response.jsonp({
-							success: true,
-							newEpisodesCount: episodes.length,
-							episodes: episodes,
-							podcast: podcast
-						});
-					}
-				});
-			});
-	});
+                podcast.save(function(err) {
+                    if(err) {
+                        response.jsonp({
+                            success: false,
+                            error: err
+                        });
+                    } else {
+                        response.jsonp({
+                            success: true,
+                            newEpisodesCount: episodes.length,
+                            episodes: episodes,
+                            podcast: podcast
+                        });
+                    }
+                });
+            });
+    });
 };
+
+/**
+ * Get an UserPodcast
+ */
+exports.getUserPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            res.jsonp(err);
+        else
+            res.jsonp(up);
+    });
+};
+
+/**
+ * Show a podcast
+ */
+exports.show = function(req, res) {
+    res.jsonp(req.podcast);
+};
+
+/**
+ * Update a podcast
+ */
+exports.update = function(req, res) {
+    var podcast = req.podcast;
+
+    podcast = _.extend(podcast, req.body);
+
+    podcast.save(function(err) {
+        if(err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                podcast: podcast
+            });
+        } else {
+            res.jsonp(podcast);
+        }
+    });
+};
+
+/* Actions */
 
 /**
  * Dislike podcast
  */
 exports.dislikePodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.rating = -1;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
@@ -311,21 +354,37 @@ exports.dislikePodcast = function(req, res) {
  * Follow podcast
  */
 exports.followPodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.following = true;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
@@ -334,51 +393,76 @@ exports.followPodcast = function(req, res) {
  * Like podcast
  */
 exports.likePodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.rating = 1;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
-};
-
-/**
- * Show a podcast
- */
-exports.show = function(req, res) {
-	res.jsonp(req.podcast);
 };
 
 /**
  * Star podcast
  */
 exports.starPodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.starred = true;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
@@ -387,21 +471,37 @@ exports.starPodcast = function(req, res) {
  * Unfollow podcast
  */
 exports.unfollowPodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.following = false;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
@@ -410,21 +510,37 @@ exports.unfollowPodcast = function(req, res) {
  * Unrate podcast
  */
 exports.unratePodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.rating = 0;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
@@ -433,46 +549,42 @@ exports.unratePodcast = function(req, res) {
  * Unstar podcast
  */
 exports.unstarPodcast = function(req, res) {
+    var isNew = false;
+    var podcast = req.podcast;
+
     UserPodcast.findOne({
         podcast: req.podcast,
         user: req.user
     }).exec(function(err, up) {
-        if(err || up === null)
+        if(err || up === null) {
             up = new UserPodcast();
+            isNew = true;
+        }
 
         up.podcast = req.podcast;
         up.user = req.user;
         up.starred = false;
+
+        if(isNew) {
+            podcast.userPodcasts.push(up);
+            podcast.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(up);
+            });
+        }
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
-            else
+            else {
                 res.jsonp(up);
+            }
         });
     });
 };
 
-/**
- * Update a podcast
- */
-exports.update = function(req, res) {
-	var podcast = req.podcast;
-
-	podcast = _.extend(podcast, req.body);
-
-	podcast.save(function(err) {
-		if(err) {
-			return res.send('users/signup', {
-				errors: err.errors,
-				podcast: podcast
-			});
-		} else {
-			res.jsonp(podcast);
-		}
-	});
-};
-
-/** Utils **/
+/* Utils */
 function stringTimeToSeconds(input) {
     var seconds = 0;
 
