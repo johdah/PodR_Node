@@ -76,6 +76,12 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             podcastId: $stateParams.podcastId
         }, function(podcast) {
             $scope.podcast = podcast;
+            $http({ method: 'GET', url: 'episodes/podcast/' + $stateParams.podcastId })
+                .success( function(data) {
+                    $scope.podcast.episodes = data;
+                })
+                .error( function() {
+            });
         });
     };
 
@@ -175,6 +181,17 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             })
             .error( function() {
         });
+    };
+
+    $scope.unrate = function() {
+        var podcast = $scope.podcast;
+
+        $http({ method: 'GET', url: 'podcasts/unrate/' + podcast._id })
+            .success( function(data) {
+                $scope.userPodcast = data;
+            })
+            .error( function() {
+            });
     };
 
     $scope.unstar = function() {

@@ -45,7 +45,6 @@ exports.allByPodcast = function(req, res) {
             .populate({
                 path: 'userEpisodes',
                 match: { user: req.user }
-                //match: { episode: _id, user: req.user }
             })
             .sort('-published')
             .exec(function(err, episodes)
@@ -357,6 +356,44 @@ exports.starEpisode = function(req, res) {
         ue.episode = req.episode;
         ue.user = req.user;
         ue.starred = true;
+
+        if(isNew) {
+            episode.userEpisodes.push(ue);
+            episode.save(function(err) {
+                if(err)
+                    res.jsonp(err);
+                else
+                    res.jsonp(ue);
+            });
+        }
+        ue.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(ue);
+        });
+    });
+};
+
+/**
+ * Unrate episode
+ */
+exports.unrateEpisode = function(req, res) {
+    var episode = req.episode;
+    var isNew = false;
+
+    UserEpisode.findOne({
+        episode: req.episode,
+        user: req.user
+    }).exec(function(err, ue) {
+        if(err || ue === null) {
+            ue = new UserEpisode();
+            isNew = true;
+        }
+
+        ue.episode = req.episode;
+        ue.user = req.user;
+        ue.rating = 0;
 
         if(isNew) {
             episode.userEpisodes.push(ue);

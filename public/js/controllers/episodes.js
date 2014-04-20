@@ -109,6 +109,17 @@ angular.module('podr.episodes').controller('EpisodesController', ['$scope', '$st
         });
     };
 
+    $scope.unrate = function() {
+        var episode = $scope.episode;
+
+        $http({ method: 'GET', url: 'episodes/unrate/' + episode._id })
+            .success( function(data) {
+                $scope.userEpisode = data;
+            })
+            .error( function() {
+            });
+    };
+
     $scope.unstar = function() {
         var episode = $scope.episode;
 

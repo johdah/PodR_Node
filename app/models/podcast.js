@@ -91,7 +91,7 @@ PodcastSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.'
 PodcastSchema.statics.load = function(id, cb) {
 	this.findOne({
 		_id: id
-	}).populate('episodes').exec(cb);
+	}).exec(cb);
 };
 
 mongoose.model('Podcast', PodcastSchema);

@@ -78,6 +78,10 @@
     margin-left:0
 }
 
+.ui-group-buttons .selected {
+    opacity: .65;
+}
+
 .content {
     margin-top:70px;
     width:100%

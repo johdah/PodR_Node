@@ -23,10 +23,10 @@
 
             <div>
                 <div class="ui-group-buttons">
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating==1" data-ng-click="like();" class="btn btn-success" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a href="javascript:void(0)" ng-if="userPodcast.rating==1" data-ng-click="unrate();" class="btn btn-success selected" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                     <a href="javascript:void(0)" ng-if="userPodcast.rating!=1" data-ng-click="like();" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                     <div class="or"></div>
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating==-1" data-ng-click="dislike();" class="btn btn-danger" role="button" disabled="disabled"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                    <a href="javascript:void(0)" ng-if="userPodcast.rating==-1" data-ng-click="unrate();" class="btn btn-danger selected" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                     <a href="javascript:void(0)" ng-if="userPodcast.rating!=-1" data-ng-click="dislike();" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                 </div>
                 <button type="button" data-ng-click="fetch();" class="btn btn-lg btn-labeled btn-danger">
@@ -108,8 +108,10 @@
                                 <a href="/#!/episodes/{{ episode._id }}" ng-if="!episode.userEpisodes[0].archived">{{ episode.title }}</a>
                                 <a href="/#!/episodes/{{ episode._id }}" ng-if="episode.userEpisodes[0].archived" class="text-muted">{{ episode.title }}</a>
                                 <span class="badge" ng-if="podcast.updated == episode.created">New</span>
-                                <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
+                                <span class="badge alert-success" ng-if="episode.userEpisodes[0].rating > 0">+1</span>
+                                <span class="badge alert-danger" ng-if="episode.userEpisodes[0].rating < -1">-1</span>
                                 <span class="badge alert-warning" ng-if="episode.userEpisodes[0] && episode.userEpisodes[0].starred">Starred</span>
+                                <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
                             </td>
                             <td class="publishedDate">{{ episode.published }}</td>
                         </tr>

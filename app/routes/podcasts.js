@@ -31,6 +31,7 @@ module.exports = function(app) {
     app.get('/podcasts/like/:podcastId', authorization.requiresLogin, podcasts.likePodcast);
     app.get('/podcasts/star/:podcastId', authorization.requiresLogin, podcasts.starPodcast);
     app.get('/podcasts/unfollow/:podcastId', authorization.requiresLogin, podcasts.unfollowPodcast);
+    app.get('/podcasts/unrate/:podcastId', authorization.requiresLogin, podcasts.unratePodcast);
     app.get('/podcasts/unstar/:podcastId', authorization.requiresLogin, podcasts.unstarPodcast);
 
 	// Finish with setting up the podcastId param

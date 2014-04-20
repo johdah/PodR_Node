@@ -19,6 +19,7 @@ module.exports = function(app) {
     app.get('/episodes/like/:episodeId', authorization.requiresLogin, episodes.likeEpisode);
     app.get('/episodes/restore/:episodeId', authorization.requiresLogin, episodes.restoreEpisode);
     app.get('/episodes/star/:episodeId', authorization.requiresLogin, episodes.starEpisode);
+    app.get('/episodes/unrate/:episodeId', authorization.requiresLogin, episodes.unrateEpisode);
     app.get('/episodes/unstar/:episodeId', authorization.requiresLogin, episodes.unstarEpisode);
     app.get('/episodes/userepisode/:episodeId', authorization.requiresLogin, episodes.getUserEpisode);
 

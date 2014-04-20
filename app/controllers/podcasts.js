@@ -127,6 +127,23 @@ exports.destroy = function(req, res) {
 };
 
 /**
+ * Get an UserPodcast
+ */
+exports.getUserPodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err)
+            res.jsonp(err);
+        else
+            res.jsonp(up);
+    });
+};
+
+/* Actions */
+
+/**
  * Fetch updates from the podcast feed
  */
 exports.fetch = function(req, response) {
@@ -268,21 +285,6 @@ exports.fetch = function(req, response) {
 };
 
 /**
- * Get an UserPodcast
- */
-exports.getUserPodcast = function(req, res) {
-    UserPodcast.findOne({
-        podcast: req.podcast,
-        user: req.user
-    }).exec(function(err, up) {
-        if(err)
-            res.jsonp(err);
-        else
-            res.jsonp(up);
-    });
-};
-
-/**
  * Dislike podcast
  */
 exports.dislikePodcast = function(req, res) {
@@ -395,6 +397,29 @@ exports.unfollowPodcast = function(req, res) {
         up.podcast = req.podcast;
         up.user = req.user;
         up.following = false;
+        up.save(function(err) {
+            if(err)
+                res.jsonp(err);
+            else
+                res.jsonp(up);
+        });
+    });
+};
+
+/**
+ * Unrate podcast
+ */
+exports.unratePodcast = function(req, res) {
+    UserPodcast.findOne({
+        podcast: req.podcast,
+        user: req.user
+    }).exec(function(err, up) {
+        if(err || up === null)
+            up = new UserPodcast();
+
+        up.podcast = req.podcast;
+        up.user = req.user;
+        up.rating = 0;
         up.save(function(err) {
             if(err)
                 res.jsonp(err);
