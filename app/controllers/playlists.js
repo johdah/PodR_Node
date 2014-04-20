@@ -23,16 +23,12 @@ exports.playlist = function(req, res, next, id) {
  * List of playlists
  */
 exports.all = function(req, res) {
-    console.log("test");
     Playlist.find().sort('title').exec(function(err, playlists) {
-        console.log("test");
         if(err) {
-            console.log(err);
             res.render('error', {
                 status: 500
             });
         } else {
-            console.log(playlists);
             res.jsonp(playlists);
         }
     });

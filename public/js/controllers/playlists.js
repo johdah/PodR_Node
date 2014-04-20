@@ -20,9 +20,7 @@ angular.module('podr.playlists').controller('PlaylistsController', ['$scope', '$
     };
 
     $scope.find = function() {
-        console.log("test");
         Playlists.query(function(playlists) {
-            console.log(playlists);
             $scope.playlists = playlists;
         });
     };
