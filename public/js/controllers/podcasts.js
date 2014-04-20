@@ -98,7 +98,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
     $scope.archiveEpisode = function(index, episodeId) {
         $http({ method: 'GET', url: 'episodes/archive/' + episodeId })
             .success( function(data) {
-                $scope.episodes[index].userEpisodes[0] = data;
+                $scope.podcast.episodes[index].userEpisodes[0] = data;
             })
             .error( function() {
         });
@@ -155,7 +155,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
     $scope.restoreEpisode = function(index, episodeId) {
         $http({ method: 'GET', url: 'episodes/restore/' + episodeId })
             .success( function(data) {
-                $scope.episodes[index].userEpisodes[0] = data;
+                $scope.podcast.episodes[index].userEpisodes[0] = data;
             })
             .error( function() {
             });
