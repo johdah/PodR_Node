@@ -75,13 +75,19 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         Podcasts.get({
             podcastId: $stateParams.podcastId
         }, function(podcast) {
-            $scope.podcast = podcast;
+            $http({ method: 'GET', url: 'podcasts/userpodcast/' + $stateParams.podcastId })
+                .success( function(data) {
+                    $scope.userPodcast = data;
+                })
+                .error( function() {
+                });
             $http({ method: 'GET', url: 'episodes/podcast/' + $stateParams.podcastId })
                 .success( function(data) {
                     $scope.podcast.episodes = data;
                 })
                 .error( function() {
-            });
+                });
+            $scope.podcast = podcast;
         });
     };
 
