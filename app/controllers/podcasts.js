@@ -102,7 +102,6 @@ exports.create = function(req, res) {
 				podcast: podcast
 			});
 		} else {
-
 			res.jsonp(podcast);
 		}
 	});
