@@ -232,19 +232,22 @@ exports.fetch = function(req, response) {
                             episode.enclosureUrl = item['rss:enclosure']['@'].url;
                     }
 
-                    Episode.count({guid: episode.guid}, function (err, count) {
-                        if(count === 0) {
-                            episode.save(function (err) {
-                                if (err)
-                                    console.log(episode.title + ' ' + err);
-                            });
-                        }
-                    });
-
-					episodes.push(episode);
+                    podcast.episodes.push(episode);
+                    episodes.push(episode);
 				}
 			})
 			.on('end', function() {
+                episodes.forEach(function(episode) {
+                    Episode.count({guid: episode.guid}, function (err, count) {
+                        if(count === 0) {
+                            episode.save(function(err) {
+                                if(err)
+                                    console.log(err);
+                            });
+                        }
+                    });
+                });
+
 				podcast.save(function(err) {
 					if(err) {
 						response.jsonp({

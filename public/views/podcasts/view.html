@@ -95,7 +95,7 @@
                         <th>Published</th>
 				    </thead>
                     <tbody>
-                        <tr class="episode" ng-repeat="episode in episodes">
+                        <tr class="episode" ng-repeat="episode in podcast.episodes">
                             <td class="quick-actions">
                                 <button type="button" class="btn btn-success btn-circle" data-ng-click="restoreEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || episode.userEpisodes[0].archived">
                                     <i class="glyphicon glyphicon-plus"></i>

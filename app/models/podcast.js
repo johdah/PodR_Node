@@ -66,6 +66,10 @@ var PodcastSchema = new Schema({
 	block: Boolean,
 	explicit: Boolean,
 	complete: Boolean,
+    episodes: [{
+        type: ObjectId,
+        ref: 'Episode'
+    }],
     userPodcasts: [{
         type: ObjectId,
         ref: 'UserPodcast'
@@ -87,7 +91,7 @@ PodcastSchema.plugin(uniqueValidator, { message: 'Expected {PATH} to be unique.'
 PodcastSchema.statics.load = function(id, cb) {
 	this.findOne({
 		_id: id
-	}).exec(cb);
+	}).populate('episodes').exec(cb);
 };
 
 mongoose.model('Podcast', PodcastSchema);

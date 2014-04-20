@@ -76,25 +76,6 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
             podcastId: $stateParams.podcastId
         }, function(podcast) {
             $scope.podcast = podcast;
-
-            $http({ method: 'GET', url: 'episodes/podcast/' + podcast._id })
-                .success( function(data) {
-                    $scope.episodes = data;
-                    for (var i in $scope.episodes) {
-                        console.log($scope.episodes[i].userEpisodes);
-                    }
-                })
-                .error( function() {
-                    console.log('Failed to update the podcast');
-                });
-
-            $http({ method: 'GET', url: 'podcasts/userpodcast/' + podcast._id })
-                .success( function(data) {
-                    $scope.userPodcast = data;
-                })
-                .error( function() {
-                    //console.log("Failed to fetch the userpodcast");
-                });
         });
     };
 
@@ -131,18 +112,15 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
     $scope.fetch = function() {
         var podcast = $scope.podcast;
         $scope.updating = true;
-        console.log("true");
 
         $http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
             .success( function(data) {
                 $scope.podcast = data.podcast;
-                $scope.episodes = data.episodes;
+                $scope.podcast.episodes = data.episodes;
                 $scope.updating = false;
-                console.log("false");
             })
             .error( function() {
                 $scope.updating = false;
-                console.log("false");
             });
     };
 
