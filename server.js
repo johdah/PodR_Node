@@ -1,6 +1,16 @@
 'use strict';
 
 /**
+ * Adding Nodetime
+ */
+if(process.env.NODETIME_ACCOUNT_KEY) {
+  require('nodetime').profile({
+    accountKey: process.env.NODETIME_ACCOUNT_KEY,
+    appName: 'PodR'
+  });
+}
+
+/**
  * Module dependencies.
  */
 var express = require('express'),
@@ -55,7 +65,7 @@ var walk = function(path) {
 			if(/(.*)\.(js$|coffee$)/.test(file)) {
 				require(newPath)(app, passport);
 			}
-		// Skip app/routes/middlewares directory is skiped since it is meant 
+		// Skip app/routes/middlewares directory is skiped since it is meant
 		// to be used and shared by routes and is not a route by itself
 		} else if (stat.isDirectory() && file !== 'middlewares') {
 			walk(newPath);
