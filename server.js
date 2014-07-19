@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Adding Nodetime
+ * Adding profiling tools
  */
 if(process.env.NODETIME_ACCOUNT_KEY) {
   require('nodetime').profile({
@@ -9,6 +9,7 @@ if(process.env.NODETIME_ACCOUNT_KEY) {
     appName: 'PodR'
   });
 }
+require('newrelic');
 
 /**
  * Module dependencies.
