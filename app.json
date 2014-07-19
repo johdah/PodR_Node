@@ -1,0 +1,22 @@
+{
+  "name": "PodR",
+  "description": "",
+  "keywords": [
+
+  ],
+  "website": "http://github.com/johdah/PodR_Node",
+  "repository": "http://github.com/johdah/PodR_Node",
+  "success_url": "/",
+  "addons": [
+    "mongohq",
+    "papertrail:choklad",
+    "nodetime",
+    "newrelic:stark"
+  ],
+  "env": [
+
+  ],
+  "scripts": [
+
+  ]
+}
