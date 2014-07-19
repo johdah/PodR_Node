@@ -1,5 +1,7 @@
 PodR
 ====
+[![Build Status](https://travis-ci.org/johdah/PodR_Node.svg)](https://travis-ci.org/johdah/PodR_Node) [![Coverage Status](https://img.shields.io/coveralls/johdah/PodR_Node.svg)](https://coveralls.io/r/johdah/PodR_Node) [![Dependency Status](https://www.versioneye.com/user/projects/53caeb1c6d70cebddc000016/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53caeb1c6d70cebddc000016)
+====
 
 A podcast manager built in Node.js using Javascript. This is based on the MEAN stack ([MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org)).
 
