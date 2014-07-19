@@ -24,7 +24,7 @@ module.exports = function(config) {
 			'public/js/config.js',
 			'public/js/directives.js',
 			'public/js/filters.js',
-			'public/js/serivces/global.js',
+			'public/js/services/global.js',
 			'public/js/services/podcasts.js',
 			'public/js/controllers/podcasts.js',
 			'public/js/controllers/index.js',
