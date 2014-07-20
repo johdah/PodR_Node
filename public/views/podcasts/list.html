@@ -15,8 +15,8 @@
         <span class="year">{{ podcast.updated | date:'yyyy' }}</span>
         <span class="time">ALL DAY</span>
       </time>
-      <img class="media-object img-thumbnail" src="{{podcast.imageUrl}}" alt="{{podcast.imageTitle}}" title="{{podcast.imageTitle}}" width="120" ng-if="podcast.imageUrl" />
-      <img class="media-object img-thumbnail" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!podcast.imageUrl" holder-fix />
+      <img class="media-object" src="{{podcast.imageUrl}}" alt="{{podcast.imageTitle}}" title="{{podcast.imageTitle}}" width="120" ng-if="podcast.imageUrl" />
+      <img class="media-object" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!podcast.imageUrl" holder-fix />
       <div class="info">
         <h2 class="title">
           <a data-ng-href="#!/podcasts/{{podcast._id}}" ng-if="podcast.title">{{podcast.title}}</a>
@@ -24,6 +24,10 @@
         </h2>
         <p class="desc" ng-if="podcast.subtitle">{{podcast.subtitle}}</p>
         <p class="desc" ng-if="!podcast.subtitle">There is no subtitle for this podcast</p>
+				<ul>
+					<li style="width:50%;">Language: {{podcast.language}}</li>
+					<li style="width:50%;"><a href="{{podcast.link}}" title="{{podcast.title}}">{{podcast.link}}</a></li>
+				</ul>
       </div>
       <div class="social">
         <!--<ul>
