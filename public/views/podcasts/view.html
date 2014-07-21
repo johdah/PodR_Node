@@ -89,33 +89,33 @@
 
 				<!-- Table -->
 				<table class="table" id="episodes">
-				    <thead>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Published</th>
-				    </thead>
-                    <tbody>
-                        <tr class="episode" ng-repeat="episode in podcast.episodes">
-                            <td class="quick-actions">
-                                <button type="button" class="btn btn-success btn-circle" data-ng-click="restoreEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || episode.userEpisodes[0].archived">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-circle" data-ng-click="archiveEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || !episode.userEpisodes[0].archived">
-                                    <i class="glyphicon glyphicon-book"></i>
-                                </button>
-                            </td>
-                            <td class="title">
-                                <a href="/#!/episodes/{{ episode._id }}" ng-if="!episode.userEpisodes[0].archived">{{ episode.title }}</a>
-                                <a href="/#!/episodes/{{ episode._id }}" ng-if="episode.userEpisodes[0].archived" class="text-muted">{{ episode.title }}</a>
-                                <span class="badge" ng-if="podcast.updated == episode.created">New</span>
-                                <span class="badge alert-success" ng-if="episode.userEpisodes[0].rating > 0">+1</span>
-                                <span class="badge alert-danger" ng-if="episode.userEpisodes[0].rating < -1">-1</span>
-                                <span class="badge alert-warning" ng-if="episode.userEpisodes[0] && episode.userEpisodes[0].starred">Starred</span>
-                                <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
-                            </td>
-                            <td class="publishedDate">{{ episode.published }}</td>
-                        </tr>
-                    </tbody>
+			    <thead>
+            <th></th>
+            <th>Title</th>
+            <th>Published</th>
+			    </thead>
+          <tbody>
+            <tr class="episode" ng-repeat="episode in podcast.episodes">
+              <td class="quick-actions">
+                  <button type="button" class="btn btn-success btn-circle" data-ng-click="restoreEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || episode.userEpisodes[0].archived">
+                      <i class="glyphicon glyphicon-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-circle" data-ng-click="archiveEpisode($index, episode._id);" ng-if="!episode.userEpisodes[0] || !episode.userEpisodes[0].archived">
+                      <i class="glyphicon glyphicon-book"></i>
+                  </button>
+              </td>
+              <td class="title">
+                  <a href="/#!/episodes/{{ episode._id }}" ng-if="!episode.userEpisodes[0].archived">{{ episode.title }}</a>
+                  <a href="/#!/episodes/{{ episode._id }}" ng-if="episode.userEpisodes[0].archived" class="text-muted">{{ episode.title }}</a>
+                  <span class="badge" ng-if="podcast.updated == episode.created">New</span>
+                  <span class="badge alert-success" ng-if="episode.userEpisodes[0].rating > 0">+1</span>
+                  <span class="badge alert-danger" ng-if="episode.userEpisodes[0].rating < -1">-1</span>
+                  <span class="badge alert-warning" ng-if="episode.userEpisodes[0] && episode.userEpisodes[0].starred">Starred</span>
+                  <span class="badge alert-success" ng-if="episode.userEpisodes[0] && !episode.userEpisodes[0].archived">Unarchived</span>
+              </td>
+              <td class="publishedDate">{{ episode.published }}</td>
+            </tr>
+          </tbody>
 				</table>
 			</div>
 		</div>
