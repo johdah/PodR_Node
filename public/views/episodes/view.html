@@ -69,9 +69,7 @@
                 <strong>Explicit</strong> Parental advisory
             </div>
             <div class="panel panel-default" ng-if="episode.description">
-                <div class="panel-body">
-                    {{episode.description}}
-                </div>
+                <div class="panel-body" ng-bind-html="episode.description"></div>
                 <div class="panel-footer"></div>
             </div>
         </div>

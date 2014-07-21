@@ -7,22 +7,36 @@
     </ul>
 
     <h1>Starred podcasts</h1>
-    <ul class="media-list">
-        <li class="media" data-ng-repeat="userPodcast in userPodcasts">
-            <a class="pull-left" href="#">
-                <img class="media-object img-circle" src="{{userPodcast.podcast.imageUrl}}" alt="{{userPodcast.podcast.imageTitle}}" title="{{userPodcast.podcast.imageTitle}}" width="120" ng-if="userPodcast.podcast.imageUrl" />
-                <img class="media-object img-circle" src="data:image/png;base64," data-src="holder.js/120x120/auto/sky" width="120" ng-if="!userPodcast.podcast.imageUrl" />
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    <a data-ng-href="#!/podcasts/{{userPodcast.podcast._id}}" ng-if="userPodcast.podcast.title">{{userPodcast.podcast.title}}</a>
-                    <a data-ng-href="#!/podcasts/{{userPodcast.podcast._id}}" ng-if="!userPodcast.podcast.title">Unknown title</a>
-                </h4>
-                <p ng-if="userPodcast.podcast.subtitle">{{userPodcast.podcast.subtitle}}</p>
-                <p ng-if="!userPodcast.podcast.subtitle">There is no subtitle for this podcast</p>
-                <span class="lastUpdated"><em>{{ userPodcast.podcast.updated | date:'yyyy-MM-dd' }}</em></span>
-            </div>
-        </li>
+    <ul class="podcast-list">
+      <li data-ng-repeat="userPodcast in userPodcasts">
+        <time datetime="{{ userPodcast.podcast.updated | date:'yyyy-MM-dd' }}">
+          <span class="day">{{ userPodcast.podcast.updated | date:'d' }}</span>
+          <span class="month">{{ userPodcast.podcast.updated | date:'MMM' }}</span>
+          <span class="year">{{ userPodcast.podcast.updated | date:'yyyy' }}</span>
+          <span class="time">ALL DAY</span>
+        </time>
+        <img class="media-object" src="{{userPodcast.podcast.imageUrl}}" alt="{{userPodcast.podcast.imageTitle}}" title="{{userPodcast.podcast.imageTitle}}" width="120" ng-if="userPodcast.podcast.imageUrl" />
+        <img class="media-object" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!userPodcast.podcast.imageUrl" holder-fix />
+        <div class="info">
+          <h2 class="title">
+            <a data-ng-href="#!/podcasts/{{userPodcast.podcast._id}}" ng-if="userPodcast.podcast.title">{{userPodcast.podcast.title}}</a>
+            <a data-ng-href="#!/podcasts/{{userPodcast.podcast._id}}" ng-if="!userPodcast.podcast.title">Unknown title</a>
+          </h2>
+          <p class="desc" ng-if="userPodcast.podcast.subtitle">{{userPodcast.podcast.subtitle}}</p>
+          <p class="desc" ng-if="!userPodcast.podcast.subtitle">There is no subtitle for this podcast</p>
+          <ul>
+            <li style="width:50%;">Language: {{userPodcast.podcast.language}}</li>
+            <li style="width:50%;"><a href="{{userPodcast.podcast.link}}" title="{{userPodcast.podcast.title}}">{{userPodcast.podcast.link}}</a></li>
+          </ul>
+        </div>
+        <div class="social">
+          <!--<ul>
+            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+          </ul>-->
+        </div>
+      </li>
     </ul>
     <h1 data-ng-hide="!userPodcasts || userPodcasts">No podcasts yet. <br /> Why dont't you <a href="/#!/podcasts/add">Add one</a>?</h1>
 </section>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$stateParams', '$location', '$http', 'Global', 'Podcasts', function($scope, $stateParams, $location, $http, Global, Podcasts) {
-	
+
 	$scope.global = Global;
 
 	$scope.create = function() {
@@ -12,7 +12,7 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
 		podcast.$save(function(err, podcast) {
 			if(!err)
 				$location.path('podcasts/' + podcast._id);
-			
+
 			$scope.err = err;
 		});
 
@@ -71,25 +71,25 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         });
 	};
 
-    $scope.findOne = function() {
-        Podcasts.get({
-            podcastId: $stateParams.podcastId
-        }, function(podcast) {
-            $http({ method: 'GET', url: 'podcasts/userpodcast/' + $stateParams.podcastId })
-                .success( function(data) {
-                    $scope.userPodcast = data;
-                })
-                .error( function() {
-                });
-            $http({ method: 'GET', url: 'episodes/podcast/' + $stateParams.podcastId })
-                .success( function(data) {
-                    $scope.podcast.episodes = data;
-                })
-                .error( function() {
-                });
-            $scope.podcast = podcast;
-        });
-    };
+  $scope.findOne = function() {
+      Podcasts.get({
+          podcastId: $stateParams.podcastId
+      }, function(podcast) {
+          $http({ method: 'GET', url: 'podcasts/userpodcast/' + $stateParams.podcastId })
+              .success( function(data) {
+                  $scope.userPodcast = data;
+              })
+              .error( function() {
+              });
+          $http({ method: 'GET', url: 'episodes/podcast/' + $stateParams.podcastId })
+              .success( function(data) {
+                  $scope.podcast.episodes = data;
+              })
+              .error( function() {
+              });
+          $scope.podcast = podcast;
+      });
+  };
 
 	$scope.findStarred = function() {
         $http({ method: 'GET', url: 'podcasts/starred' })

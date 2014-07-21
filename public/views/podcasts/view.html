@@ -6,36 +6,36 @@
 				<img ng-if="!podcast.imageUrl" data-src="holder.js/350x350/auto/industrial/text:no image" class="img-rounded img-responsive" holder-fix />
 			</a>
 
-            <div>
-                <button type="button" data-ng-click="follow();" ng-if="!userPodcast.following" class="btn btn-lg btn-labeled btn-success">
-                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Follow
-                </button>
-                <button type="button" data-ng-click="unfollow();" ng-if="userPodcast.following" class="btn btn-lg btn-labeled btn-danger">
-                    <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Unfollow
-                </button>
-                <button type="button" data-ng-click="star();" ng-if="!userPodcast.starred" class="btn btn-lg btn-labeled btn-success">
-                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Star
-                </button>
-                <button type="button" data-ng-click="unstar();" ng-if="userPodcast.starred" class="btn btn-lg btn-labeled btn-danger">
-                    <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Unstar
-                </button>
-            </div>
+      <div>
+          <button type="button" data-ng-click="follow();" ng-if="!userPodcast.following" class="btn btn-lg btn-labeled btn-success">
+              <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Follow
+          </button>
+          <button type="button" data-ng-click="unfollow();" ng-if="userPodcast.following" class="btn btn-lg btn-labeled btn-danger">
+              <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Unfollow
+          </button>
+          <button type="button" data-ng-click="star();" ng-if="!userPodcast.starred" class="btn btn-lg btn-labeled btn-success">
+              <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Star
+          </button>
+          <button type="button" data-ng-click="unstar();" ng-if="userPodcast.starred" class="btn btn-lg btn-labeled btn-danger">
+              <span class="btn-label"><i class="glyphicon glyphicon-star"></i></span>Unstar
+          </button>
+      </div>
 
-            <div>
-                <div class="ui-group-buttons">
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating==1" data-ng-click="unrate();" class="btn btn-success selected" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating!=1" data-ng-click="like();" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                    <div class="or"></div>
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating==-1" data-ng-click="unrate();" class="btn btn-danger selected" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
-                    <a href="javascript:void(0)" ng-if="userPodcast.rating!=-1" data-ng-click="dislike();" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
-                </div>
-                <button type="button" data-ng-click="fetch();" class="btn btn-lg btn-labeled btn-danger">
-                    <span class="btn-label">
-                        <i class="glyphicon glyphicon-refresh" ng-if="!updating"></i>
-                        <i class="glyphicon glyphicon-refresh rotate-animation" ng-if="updating"></i>
-                    </span>Update
-                </button>
-            </div>
+      <div>
+          <div class="ui-group-buttons">
+              <a href="javascript:void(0)" ng-if="userPodcast.rating==1" data-ng-click="unrate();" class="btn btn-success selected" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+              <a href="javascript:void(0)" ng-if="userPodcast.rating!=1" data-ng-click="like();" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+              <div class="or"></div>
+              <a href="javascript:void(0)" ng-if="userPodcast.rating==-1" data-ng-click="unrate();" class="btn btn-danger selected" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+              <a href="javascript:void(0)" ng-if="userPodcast.rating!=-1" data-ng-click="dislike();" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+          </div>
+          <button type="button" data-ng-click="fetch();" class="btn btn-lg btn-labeled btn-danger">
+              <span class="btn-label">
+                  <i class="glyphicon glyphicon-refresh" ng-if="!updating"></i>
+                  <i class="glyphicon glyphicon-refresh rotate-animation" ng-if="updating"></i>
+              </span>Update
+          </button>
+      </div>
 
 			<h3>Info</h3>
 			<span>Added: {{podcast.created | date:'yyyy-MM-dd'}}</span>
