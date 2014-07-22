@@ -22,7 +22,7 @@
             <a data-ng-href="#!/episodes/{{episode._id}}" ng-if="episode.title">{{episode.title}}</a>
             <a data-ng-href="#!/episodes/{{episode._id}}" ng-if="!episode.title">Unknown title</a>
           </h2>
-          <p class="desc" ng-if="episode.subtitle">{{episode.subtitle}}</p>
+          <p class="panel-body" ng-if="episode.subtitle" ng-bind-html="episode.subtitle"></p>
           <p class="desc" ng-if="!episode.subtitle">There is no subtitle for this episode</p>
           <!--<ul>
             <li style="width:50%;"></li>
