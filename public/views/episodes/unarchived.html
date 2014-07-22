@@ -7,22 +7,36 @@
     </ul>
 
     <h1>Unarchived episodes</h1>
-    <ul class="media-list">
-        <li class="media" data-ng-repeat="userEpisode in userEpisodes">
-            <a class="pull-left" href="#">
-                <img class="media-object img-circle" src="{{userEpisode.episode.imageUrl}}" alt="{{userEpisode.episode.imageTitle}}" title="{{userEpisode.episode.imageTitle}}" width="120" ng-if="userEpisode.episode.imageUrl" />
-                <img class="media-object img-circle" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!userEpisode.episode.imageUrl" holder-fix />
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="userEpisode.episode.title">{{userEpisode.episode.title}}</a>
-                    <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="!userEpisode.episode.title">Unknown title</a>
-                </h4>
-                <p ng-if="userEpisode.episode.subtitle">{{userEpisode.episode.subtitle}}</p>
-                <p ng-if="!userEpisode.episode.subtitle">There is no subtitle for this episode</p>
-                <span class="published"><em>{{ userEpisode.episode.published | date:'yyyy-MM-dd' }}</em></span>
-            </div>
-        </li>
+    <ul class="episode-list">
+      <li data-ng-repeat="userEpisode in userEpisodes">
+        <time datetime="{{ userEpisode.episode.published | date:'yyyy-MM-dd' }}">
+          <span class="day">{{ userEpisode.episode.published | date:'d' }}</span>
+          <span class="month">{{ userEpisode.episode.published | date:'MMM' }}</span>
+          <span class="year">{{ userEpisode.episode.published | date:'yyyy' }}</span>
+          <span class="time">ALL DAY</span>
+        </time>
+        <img class="media-object" src="{{userEpisode.episode.imageUrl}}" alt="{{userEpisode.episode.imageTitle}}" title="{{userEpisode.episode.imageTitle}}" width="120" ng-if="userEpisode.episode.imageUrl" />
+        <img class="media-object" data-src="holder.js/120x120/auto/industrial/text:no image" width="120" ng-if="!userEpisode.episode.imageUrl" holder-fix />
+        <div class="info">
+          <h2 class="title">
+            <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="userEpisode.episode.title">{{userEpisode.episode.title}}</a>
+            <a data-ng-href="#!/episodes/{{userEpisode.episode._id}}" ng-if="!userEpisode.episode.title">Unknown title</a>
+          </h2>
+          <p class="panel-body" ng-if="userEpisode.episode.subtitle" ng-bind-html="userEpisode.episode.subtitle"></p>
+          <p class="desc" ng-if="!userEpisode.episode.subtitle">There is no subtitle for this episode</p>
+          <!--<ul>
+            <li style="width:50%;"></li>
+            <li style="width:50%;"></li>
+          </ul>-->
+        </div>
+        <div class="social">
+          <!--<ul>
+            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+          </ul>-->
+        </div>
+      </li>
     </ul>
     <h1 data-ng-hide="!userEpisodes || userEpisodes">No episodes yet.</h1>
 </section>
