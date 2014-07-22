@@ -58,12 +58,16 @@ module.exports = function(app, passport, db) {
 	app.use(cookieParser());
 
 	// Request body parsing middleware should be above methodOverride
-	app.use(bodyParser.urlencoded());
+	app.use(bodyParser.urlencoded({
+	  extended: true
+	}));
 	app.use(bodyParser.json());
 	app.use(methodOverride());
 
 	// Express/Mongo session storage
 	app.use(session({
+		resave: true,
+		saveUninitialized: true,
 		secret: config.sessionSecret,
 		store: new mongoStore({
 			db: db.connection.db,
