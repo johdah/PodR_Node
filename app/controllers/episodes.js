@@ -64,7 +64,7 @@ exports.allByPodcast = function(req, res) {
  * List of a users liked episodes.
  */
 exports.allUserLiked = function(req, res) {
-    UserEpisode.find({ user: req.user, rating: 1 }).populate('episode').sort('-published').exec(function(err, ue) {
+    UserEpisode.find({ user: req.user, rating: 1 }).populate('episode').sort('-episode.published').exec(function(err, ue) {
         if(err) {
             res.render('error', {
                 status: 500
@@ -79,7 +79,7 @@ exports.allUserLiked = function(req, res) {
  * List of a users starred episodes.
  */
 exports.allUserStarred = function(req, res) {
-    UserEpisode.find({ user: req.user, starred: true }).populate('episode').sort('-published').exec(function(err, ue) {
+    UserEpisode.find({ user: req.user, starred: true }).populate('episode').sort('-episode.published').exec(function(err, ue) {
         if(err) {
             res.render('error', {
                 status: 500
@@ -94,7 +94,7 @@ exports.allUserStarred = function(req, res) {
  * List of a users unarchived episodes.
  */
 exports.allUserUnarchived = function(req, res) {
-    UserEpisode.find({ user: req.user, archived: false }).populate('episode').sort('-published').exec(function(err, ue) {
+    UserEpisode.find({ user: req.user, archived: false }).populate('episode').sort('-episode.published').exec(function(err, ue) {
         if(err) {
             res.render('error', {
                 status: 500
