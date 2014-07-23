@@ -6,7 +6,7 @@
 var mongoose = require('mongoose'),
 	uniqueValidator = require('mongoose-unique-validator'),
 	Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+  ObjectId = Schema.Types.ObjectId;
 
 /**
  * Podcast Schema
