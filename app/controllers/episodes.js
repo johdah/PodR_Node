@@ -14,7 +14,7 @@ var _ = require('lodash'),
 exports.episode = function(req, res, next, id) {
     Episode.load(id, function(err, episode) {
         if(err) return next(err);
-        if(!episode) return next(new Error('Failed to load episode ' + id));
+        //if(!episode) return next(new Error('Failed to load episode ' + id));
         req.episode = episode;
         next();
     });
@@ -209,9 +209,9 @@ exports.archiveEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function (err) {
                 if (err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -247,9 +247,9 @@ exports.dislikeEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -285,9 +285,9 @@ exports.likeEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -323,9 +323,9 @@ exports.restoreEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -361,9 +361,9 @@ exports.starEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -399,9 +399,9 @@ exports.unrateEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
@@ -437,9 +437,9 @@ exports.unstarEpisode = function(req, res) {
             episode.userEpisodes.push(ue);
             episode.save(function(err) {
                 if(err)
-                    res.jsonp(err);
-                else
-                    res.jsonp(ue);
+                    return res.jsonp(err);
+                //else
+                    //res.jsonp(ue); // Fixed headers already sent error
             });
         }
         ue.save(function(err) {
