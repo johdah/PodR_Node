@@ -11,7 +11,9 @@
     "mongohq",
     "papertrail:choklad",
     "nodetime",
-    "newrelic:stark"
+    "newrelic:stark",
+    "scheduler",
+    "sendgrid"
   ],
   "env": [
 
