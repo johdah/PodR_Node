@@ -27,7 +27,7 @@ exports.podcast = function(req, res, next, id) {
  * List of podcasts
  */
 exports.all = function(req, res) {
-	Podcast.find().sort('-title').exec(function(err, podcasts) {
+	Podcast.find().sort('title').exec(function(err, podcasts) {
 		if(err) {
 			res.render('error', {
 				status: 500
@@ -42,7 +42,7 @@ exports.all = function(req, res) {
  * List of followed podcasts
  */
 exports.allFollowed = function(req, res) {
-	UserPodcast.find({ user: req.user, following: true }).populate('podcast').sort('-title').exec(function(err, up) {
+	UserPodcast.find({ user: req.user, following: true }).populate('podcast').sort('title').exec(function(err, up) {
 		if(err) {
 			res.render('error', {
 				status: 500
@@ -57,7 +57,7 @@ exports.allFollowed = function(req, res) {
  * List of liked podcasts
  */
 exports.allLiked = function(req, res) {
-    UserPodcast.find({ user: req.user, rating: 1 }).populate('podcast').sort('-title').exec(function(err, up) {
+    UserPodcast.find({ user: req.user, rating: 1 }).populate('podcast').sort('title').exec(function(err, up) {
         if(err) {
             res.render('error', {
                 status: 500
@@ -72,7 +72,7 @@ exports.allLiked = function(req, res) {
  * List of starred podcasts
  */
 exports.allStarred = function(req, res) {
-    UserPodcast.find({ user: req.user, starred: true }).populate('podcast').sort('-title').exec(function(err, up) {
+    UserPodcast.find({ user: req.user, starred: true }).populate('podcast').sort('title').exec(function(err, up) {
         if(err) {
             res.render('error', {
                 status: 500
