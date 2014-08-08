@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "body-parser": "1.5.0",
-    "bower": "1.3.8",
+    "bower": "1.3.9",
     "compression": "1.0.9",
     "connect-flash": "~0.1.1",
     "connect-mongo": "~0.4.0",
@@ -26,9 +26,9 @@
     "cookie-parser": "1.3.2",
     "coveralls": "^2.11.1",
     "crypto": "0.0.3",
-    "express": "~4.6.1",
+    "express": "4.8.2",
     "express-session": "1.7.0",
-    "feedparser": "0.18.1",
+    "feedparser": "0.19.1",
     "forever": "0.11.1",
     "grunt": "~0.4.2",
     "grunt-cli": "~0.1.11",
@@ -39,10 +39,10 @@
     "grunt-karma": "0.8.3",
     "grunt-mocha-test": "~0.8.1",
     "grunt-nodemon": "0.3.0",
-    "karma": "0.12.17",
+    "karma": "0.12.21",
     "karma-chrome-launcher": "~0.1.2",
     "karma-coffee-preprocessor": "0.2.1",
-    "karma-coverage": "0.2.4",
+    "karma-coverage": "0.2.6",
     "karma-firefox-launcher": "~0.1.3",
     "karma-html2js-preprocessor": "~0.1.0",
     "karma-jasmine": "0.2.2",
@@ -63,7 +63,7 @@
     "serve-favicon": "2.0.1",
     "should": "4.0.4",
     "supertest": "0.13.0",
-    "swig": "1.4.1",
+    "swig": "1.4.2",
     "view-helpers": "~0.1.4"
   },
   "devDependencies": {
@@ -78,12 +78,12 @@
     "karma-chrome-launcher": "~0.1.0",
     "karma-firefox-launcher": "~0.1.0",
     "karma-html2js-preprocessor": "~0.1.0",
-    "karma-jasmine": "~0.2.2",
+    "karma-jasmine": "0.2.2",
     "karma-requirejs": "~0.2.0",
     "karma-coffee-preprocessor": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.0",
-    "karma": "~0.12.17",
-    "grunt-karma": "~0.8.3",
-    "karma-coverage": "~0.2.4"
+    "karma": "0.12.21",
+    "grunt-karma": "0.8.3",
+    "karma-coverage": "~0.2.6"
   }
 }
