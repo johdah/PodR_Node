@@ -61,6 +61,7 @@
     "passport": "0.2.0",
     "passport-local": "1.0.0",
     "serve-favicon": "2.0.1",
+    "sendgrid": "latest",
     "should": "4.0.4",
     "supertest": "0.13.0",
     "swig": "1.4.2",

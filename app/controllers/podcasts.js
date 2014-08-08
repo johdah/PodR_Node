@@ -6,7 +6,7 @@
 var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	http = require('http'),
-    Episode = mongoose.model('Episode'),
+  Episode = mongoose.model('Episode'),
 	Podcast = mongoose.model('Podcast'),
 	UserPodcast = mongoose.model('UserPodcast'),
 	FeedParser = require('feedparser');
