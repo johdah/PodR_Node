@@ -17,9 +17,9 @@
     "postinstall": "node node_modules/bower/bin/bower install"
   },
   "dependencies": {
-    "body-parser": "1.5.0",
+    "body-parser": "1.6.2",
     "bower": "1.3.9",
-    "compression": "1.0.9",
+    "compression": "1.0.10",
     "connect-flash": "~0.1.1",
     "connect-mongo": "~0.4.0",
     "consolidate": "~0.10.0",
@@ -27,7 +27,7 @@
     "coveralls": "^2.11.1",
     "crypto": "0.0.3",
     "express": "4.8.2",
-    "express-session": "1.7.0",
+    "express-session": "1.7.4",
     "feedparser": "0.19.1",
     "forever": "0.11.1",
     "grunt": "~0.4.2",
@@ -51,11 +51,11 @@
     "karma-script-launcher": "~0.1.0",
     "lodash": "~2.4.1",
     "mean-logger": "1.0.0",
-    "method-override": "2.1.1",
+    "method-override": "2.1.2",
     "mocha-lcov-reporter": "0.0.1",
     "mongoose": "3.9.0",
     "mongoose-unique-validator": "0.3.0",
-    "morgan": "1.2.0",
+    "morgan": "1.2.2",
     "newrelic": "^1.8.1",
     "nodetime": "^0.8.15",
     "passport": "0.2.0",
@@ -67,13 +67,14 @@
     "view-helpers": "~0.1.4"
   },
   "devDependencies": {
-    "supertest": "0.13.0",
-    "should": "4.0.4",
     "grunt-contrib-watch": "0.6.1",
     "grunt-contrib-jshint": "0.10.0",
     "grunt-nodemon": "0.3.0",
     "grunt-concurrent": "0.5.0",
+    "grunt-karma": "0.8.3",
     "grunt-mocha-test": "0.11.0",
+    "karma": "0.12.21",
+    "karma-coverage": "~0.2.6",
     "karma-script-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
     "karma-firefox-launcher": "~0.1.0",
@@ -82,8 +83,7 @@
     "karma-requirejs": "~0.2.0",
     "karma-coffee-preprocessor": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.0",
-    "karma": "0.12.21",
-    "grunt-karma": "0.8.3",
-    "karma-coverage": "~0.2.6"
+    "should": "4.0.4",
+    "supertest": "0.13.0"
   }
 }

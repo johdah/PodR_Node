@@ -2,16 +2,16 @@
 	"name": 		"podr",
 	"version":		"0.1.0",
 	"dependencies":	{
-		"jquery":				"latest",
-		"angular":				"latest",
-		"angular-resource":		"latest",
-		"angular-cookies":		"latest",
-		"angular-mocks":		"latest",
-		"angular-route":		"latest",
-		"angular-sanitize":		"latest",
-		"bootstrap":			"3.0.3",
-		"angular-bootstrap":	"0.10.0",
-		"angular-ui-router":	"#master",
-		"holderjs":				"latest"
+		"angular": "1.2.16",
+		"angular-bootstrap": "0.10.0",
+		"angular-cookies": "1.2.16",
+		"angular-mocks": "1.2.16",
+		"angular-resource": "1.2.16",
+		"angular-route": "1.2.16",
+		"angular-sanitize": "1.2.16",
+		"angular-ui-router": "0.2.10",
+		"bootstrap": "3.2.0",
+		"holderjs": "2.3.2",
+		"jquery": "2.1.0"
 	}
 }
