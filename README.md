@@ -43,6 +43,12 @@ Then open browser and go to:
 
 	http://localhost:3000
 
+## Workers
+
+fetchUpdates
+
+	Used to schedule podcast updates
+
 ## Troubleshooting
 Most of the issues that you may encounter can be solved by one of the following tips.
 
