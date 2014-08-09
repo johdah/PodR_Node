@@ -1,3 +1,12 @@
-<section data-ng-controller="IndexController">
+<section data-ng-controller="IndexController" data-ng-init="findEvents()">
 	<h1>This is the home view</h1>
+
+	<h1>Events</h1>
+	<ul class="event-list">
+		<li data-ng-repeat="event in events">
+			<h2 class="title">
+				<strong>{{event.title}}</strong>
+			</h2>
+		</li>
+	</ul>
 </section>

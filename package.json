@@ -54,6 +54,7 @@
     "method-override": "2.1.2",
     "mocha-lcov-reporter": "0.0.1",
     "mongoose": "3.9.0",
+    "mongoose-schema-extend": "0.1.7",
     "mongoose-unique-validator": "0.3.0",
     "morgan": "1.2.2",
     "newrelic": "^1.8.1",

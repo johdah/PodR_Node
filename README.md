@@ -111,5 +111,13 @@ heroku apps:create
 git push heroku master
 ...
 
+## Troubleshooting
+
+### Atom editor
+
+Unable to walk path
+
+	sudo sysctl fs.inotify.max_user_watches=3276888
+
 ## Credits
 * Using the [MEAN](http://mean.io) stack.

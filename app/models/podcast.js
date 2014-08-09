@@ -66,14 +66,14 @@ var PodcastSchema = new Schema({
 	block: Boolean,
 	explicit: Boolean,
 	complete: Boolean,
-    episodes: [{
-        type: ObjectId,
-        ref: 'Episode'
-    }],
-    userPodcasts: [{
-        type: ObjectId,
-        ref: 'UserPodcast'
-    }]
+  episodes: [{
+      type: ObjectId,
+      ref: 'Episode'
+  }],
+  userPodcasts: [{
+      type: ObjectId,
+      ref: 'UserPodcast'
+  }]
 });
 
 /**
