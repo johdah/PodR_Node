@@ -22,11 +22,6 @@ var EventSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  title: {
-    type: String,
-    default: '',
-    trim: true
-  },
   user: {
       type: Schema.ObjectId,
       ref: 'User'
@@ -35,8 +30,45 @@ var EventSchema = new Schema({
 
 var NewEpisodeEventSchema = EventSchema.extend({
   episode: {
-      type: Schema.ObjectId,
-      ref: 'Episode'
+    _id: {
+      type: String,
+      default: '',
+      trim: true
+    },
+    imageTitle: {
+      type: String
+    },
+    imageUrl: {
+      type: String
+    },
+    subtitle: {
+      type: String,
+      default: '',
+      trim: true
+    },
+    title: {
+      type: String,
+      default: '',
+      trim: true
+    }
+  },
+  podcast: {
+    _id: {
+      type: String,
+      default: '',
+      trim: true
+    },
+    imageTitle: {
+      type: String
+    },
+    imageUrl: {
+      type: String
+    },
+    title: {
+      type: String,
+      default: '',
+      trim: true
+    }
   },
 });
 

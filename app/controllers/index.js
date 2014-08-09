@@ -5,7 +5,8 @@
 */
 var _ = require('lodash'),
 	mongoose = require('mongoose'),
-	Event = mongoose.model('Event');
+	Event = mongoose.model('Event'),
+	Podcast = mongoose.model('Podcast');
 
 exports.render = function(req, res) {
 	res.render('index', {
@@ -14,7 +15,8 @@ exports.render = function(req, res) {
 };
 
 exports.allEvents = function(req, res) {
-	Event.find().populate('episode').sort('-occurred').exec(function(err, events) {
+	Event.find().sort('-occurred').exec(function(err, events) {
+		console.log(events[1]);
 		if(err) {
 			res.render('error', {
 				status: 500

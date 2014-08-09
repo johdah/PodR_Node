@@ -6,15 +6,24 @@
 		<h1>Events</h1>
 		<ul class="timeline">
 			<li ng-class-odd="''" ng-class-even="'timeline-inverted'" data-ng-repeat="event in events">
-				<div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+				<div class="timeline-badge"><i class="glyphicon glyphicon-envelope"></i></div>
 				<div class="timeline-panel">
 					<div class="timeline-heading">
-						<h4 class="timeline-title">{{event.title}}</h4>
+						<div ng-if="event._type='NewEpisodeEvent'">
+						 	<a data-ng-href="#!/episodes/{{event.episode._id}}">
+								<h4 class="timeline-title">{{event.episode.title}}</h4>
+							</a>
+							<a data-ng-href="#!/podcasts/{{event.podcast._id}}">
+								<h5 ng-if="event.podcast.title" class="timeline-author">{{event.podcast.title}}</h5>
+							</a>
+						</div>
 						<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{event.occurred}}</small></p>
 					</div>
-					<div class="timeline-body" ng-if="event._type='NewEpisodeEvent'">
-						<p ng-if="event.episode.subtitle" ng-bind-html="event.episode.subtitle"></p>
-						<p ng-if="!event.episode.subtitle">There is no subtitle for this episode</p>
+					<div class="timeline-body">
+						<div ng-if="event._type='NewEpisodeEvent'">
+							<blockquote ng-if="event.episode.subtitle" ng-bind-html="event.episode.subtitle"></blockquote>
+							<blockquote ng-if="!event.episode.subtitle">There is no subtitle for this episode</blockquote>
+						</div>
 					</div>
 				</div>
 			</li>

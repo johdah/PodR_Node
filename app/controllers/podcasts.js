@@ -244,9 +244,20 @@ exports.fetch = function(req, response) {
                                     console.log(err);
 																else {
 																		var newEpisodeEvent = new NewEpisodeEvent({
-																				episode: episode,
+																				episode: {
+																					_id: episode._id,
+																					imageTitle: episode.imageTitle,
+																					imageUrl: episode.imageUrl,
+																					subtitle: episode.subtitle,
+																					title: episode.title
+																				},
 																				occurred: episode.published,
-																				title: episode.title,
+																				podcast: {
+																					_id: podcast._id,
+																					imageTitle: podcast.imageTitle,
+																					imageUrl: podcast.imageUrl,
+																					title: podcast.title
+																				},
 																				user: req.user
 																		});
 																		newEpisodeEvent.save(function(err) {

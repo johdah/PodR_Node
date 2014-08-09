@@ -211,6 +211,11 @@
     color: inherit;
 }
 
+.timeline-author {
+    margin-top: 0;
+    color: inherit;
+}
+
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;
