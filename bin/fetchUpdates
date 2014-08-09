@@ -224,6 +224,8 @@ Podcast.find().sort('title').exec(function(err, podcasts) {
             }
           });
         });
+      }).on('error', function(e) {
+        console.log("Got error: " + e.message);
       });
     });
   }
