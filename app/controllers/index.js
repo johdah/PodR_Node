@@ -14,7 +14,7 @@ exports.render = function(req, res) {
 };
 
 exports.allEvents = function(req, res) {
-	Event.find().sort('created').exec(function(err, events) {
+	Event.find().populate('episode').sort('-occurred').exec(function(err, events) {
 		if(err) {
 			res.render('error', {
 				status: 500

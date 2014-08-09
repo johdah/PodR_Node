@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	http = require('http'),
   Episode = mongoose.model('Episode'),
+	NewEpisodeEvent = mongoose.model('NewEpisodeEvent'),
 	Podcast = mongoose.model('Podcast'),
 	UserPodcast = mongoose.model('UserPodcast'),
 	FeedParser = require('feedparser');
@@ -132,14 +133,12 @@ exports.destroy = function(req, res) {
 exports.fetch = function(req, response) {
     var podcast = req.podcast;
     var episodes = [];
+		var err = [];
 
     http.get(podcast.url, function(res) {
         res.pipe(new FeedParser({}))
             .on('error', function(error) {
-                response.jsonp({
-                    success: false,
-                    error: error
-                });
+								err.push(error);
             })
             .on('meta', function(meta) {
                 // TODO: Error handling
@@ -243,25 +242,35 @@ exports.fetch = function(req, response) {
                             episode.save(function(err) {
                                 if(err)
                                     console.log(err);
+																else {
+																		var newEpisodeEvent = new NewEpisodeEvent({
+																				episode: episode,
+																				occurred: episode.published,
+																				title: episode.title,
+																				user: req.user
+																		});
+																		newEpisodeEvent.save(function(err) {
+																				if(err)
+																					console.log(err);
+																		});
+																}
                             });
                         }
                     });
                 });
 
-                podcast.save(function(err) {
-                    if(err) {
-                        response.jsonp({
-                            success: false,
-                            error: err
-                        });
-                    } else {
-                        response.jsonp({
-                            success: true,
-                            newEpisodesCount: episodes.length,
-                            episodes: episodes,
-                            podcast: podcast
-                        });
+                podcast.save(function(error) {
+                    if(error) {
+                        err.push(error);
                     }
+
+                    return response.jsonp({
+                        success: true,
+												errors: err,
+                        newEpisodesCount: episodes.length,
+                        episodes: episodes,
+                        podcast: podcast
+                    });
                 });
             });
     });

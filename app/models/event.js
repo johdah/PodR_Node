@@ -18,6 +18,10 @@ var EventSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  occurred: {
+    type: Date,
+    default: Date.now
+  },
   title: {
     type: String,
     default: '',

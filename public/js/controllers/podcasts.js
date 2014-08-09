@@ -125,10 +125,14 @@ angular.module('podr.podcasts').controller('PodcastsController', ['$scope', '$st
         var podcast = $scope.podcast;
         $scope.updating = true;
 
+				if(podcast === undefined)
+					return;
+
         $http({ method: 'GET', url: 'podcasts/update/' + podcast._id })
             .success( function(data) {
                 $scope.podcast = data.podcast;
-                $scope.podcast.episodes = data.episodes;
+								if(data.episodes)
+                	$scope.podcast.episodes = data.episodes;
                 $scope.updating = false;
             })
             .error( function() {
