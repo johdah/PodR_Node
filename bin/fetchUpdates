@@ -66,6 +66,7 @@ function stringTimeToSeconds(input) {
 }
 
 var Episode = mongoose.model('Episode');
+var NewEpisodeEvent = mongoose.model('NewEpisodeEvent');
 var Podcast = mongoose.model('Podcast');
 var UserPodcast = mongoose.model('UserPodcast');
 
@@ -174,27 +175,52 @@ function parseHttpResponse(res, podcast) {
   })
   .on('end', function() {
     var newEpisodes = [];
-    episodes.forEach(function(episode) {
-      Episode.count({guid: episode.guid}, function (err, count) {
-        if(count === 0) {
-          episode.save(function(err) {
-            if(err)
-              console.log(err);
-            else
-              newEpisodes.push(episode);
-          });
-        }
+
+    UserPodcast.find({ podcast: podcast }).populate('user').exec(function(err, ups) {
+      episodes.forEach(function(episode) {
+        Episode.count({guid: episode.guid}, function (err, count) {
+          if(count === 0) {
+            episode.save(function(err) {
+              if(err)
+                console.log(err);
+              else
+                newEpisodes.push(episode);
+
+                ups.forEach(function(up) {
+                  var newEpisodeEvent = new NewEpisodeEvent({
+                      episode: {
+                        _id: episode._id,
+                        imageTitle: episode.imageTitle,
+                        imageUrl: episode.imageUrl,
+                        subtitle: episode.subtitle,
+                        title: episode.title
+                      },
+                      occurred: episode.published,
+                      podcast: {
+                        _id: podcast._id,
+                        imageTitle: podcast.imageTitle,
+                        imageUrl: podcast.imageUrl,
+                        title: podcast.title
+                      },
+                      user: up.user
+                  });
+                  newEpisodeEvent.save(function(err) {
+                      if(err)
+                        console.log(err);
+                  });
+                });
+            });
+          }
+        });
       });
-    });
 
-    podcast.save(function(err) {
-      if(err) {
-        console.log(err);
-      } else {
-        console.log(newEpisodes.length + " new episodes was added for podcast " + podcast._id);
+      podcast.save(function(err) {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log(newEpisodes.length + " new episodes was added for podcast " + podcast._id);
 
-        if (newEpisodes.length > 0) {
-          UserPodcast.find({ podcast: podcast }).populate('user').exec(function(err, ups) {
+          if (newEpisodes.length > 0) {
             if(err) {
               console.log(err);
             } else {
@@ -212,9 +238,9 @@ function parseHttpResponse(res, podcast) {
                 });
               });
             }
-          });
+          }
         }
-      }
+      });
     });
   });
 }
